@@ -14,12 +14,13 @@ namespace MedienBibliothek.Controller
 {
     class MainWindowModel : INotifyPropertyChanged
     {
-//        DirectoryInfo videoPath = new DirectoryInfo(@"c:\Movies");
+
         DirectoryInfo videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
         public MainWindowModel()
         {
             RefreshButtonName = "Refresh video list";
             AddVideoToListView = new CollectionView(GetAvailableVideos());
+            VideoName = new CollectionView(GetAvailableVideos());
         }
 
         private string _refreshButtonName;
@@ -35,6 +36,21 @@ namespace MedienBibliothek.Controller
                 OnPropertyChanged("RefreshButtonName");
             }
         }
+
+        private CollectionView _videoName;
+        public CollectionView VideoName
+        {
+            get
+            {
+                return _videoName;
+            }
+            set
+            {
+                _videoName = value;
+                OnPropertyChanged("VideoName");
+            }
+        }
+        
 
         private CollectionView _addVideoToListView;
         public CollectionView AddVideoToListView
