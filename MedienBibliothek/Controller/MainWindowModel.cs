@@ -74,14 +74,6 @@ namespace MedienBibliothek.Controller
 
 
 
-//        private void RefreshVideoList()
-//        {
-//            RefreshButtonName = "Refreshing...";
-//            string[] testArray = Directory.GetFiles(videoPath, "*.mkv");
-//            AddVideoToListView = testArray[0];
-//            RefreshButtonName = testArray[0];
-//
-//        }
 
         private void CheckForNewVideos()
         {
@@ -109,9 +101,12 @@ namespace MedienBibliothek.Controller
 
         private string SplitVideoFolderName(string fullDirectoryPath)
         {
-            string[] videoName = fullDirectoryPath.Split('\\');
-//            string[] videoName = fullDirectoryPath.Split(videoPath, StringSplitOptions.RemoveEmptyEntries)
-            return videoName[2];
+            string[] videoNameWithQuality = fullDirectoryPath.Split(Path.DirectorySeparatorChar);
+            string[] videoName = videoNameWithQuality.Last().Split(new string[] {"1080p" , "720p"}, StringSplitOptions.None);
+            
+
+            return videoName.First();
+
         }
     
     
