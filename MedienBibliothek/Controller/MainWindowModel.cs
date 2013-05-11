@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Data;
 using System.Windows.Input;
 using MedienBibliothek.Model;
+
 
 namespace MedienBibliothek.Controller
 {
     class MainWindowModel : INotifyPropertyChanged
     {
-
+        DirectoryInfo videoPath = new DirectoryInfo(@"c:\Movies");
         public MainWindowModel()
         {
             RefreshButtonName = "Refresh video list";
+            AddVideoToListView = new CollectionView(GetAvailableVideos());
         }
 
         private string _refreshButtonName;
@@ -29,6 +34,21 @@ namespace MedienBibliothek.Controller
                 OnPropertyChanged("RefreshButtonName");
             }
         }
+
+        private CollectionView _addVideoToListView;
+        public CollectionView AddVideoToListView
+        {
+            get
+            {
+                return _addVideoToListView;
+            }
+            set
+            {
+                _addVideoToListView = value;
+                OnPropertyChanged("AddVideoTiListView");
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -46,15 +66,52 @@ namespace MedienBibliothek.Controller
             {
                 if (_refreshVideoListCommand == null)
                 {
-                    _refreshVideoListCommand = new DelegateCommand(RefreshVideoList);
+                    _refreshVideoListCommand = new DelegateCommand(CheckForNewVideos);
                 }
                 return _refreshVideoListCommand;
             }
         }
 
-        private void RefreshVideoList()
+
+
+//        private void RefreshVideoList()
+//        {
+//            RefreshButtonName = "Refreshing...";
+//            string[] testArray = Directory.GetFiles(videoPath, "*.mkv");
+//            AddVideoToListView = testArray[0];
+//            RefreshButtonName = testArray[0];
+//
+//        }
+
+        private void CheckForNewVideos()
         {
-            RefreshButtonName = "Refreshing...";
+            GetAvailableVideos();
+        }
+
+        private List<DirectoryInfo> GetAvailableVideos()
+        {
+            var listOfVideos = new List<DirectoryInfo>();
+            if(videoPath.Exists)
+            {
+                FileInfo[] videoFiles = videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
+                foreach (var videoFile in videoFiles)
+                {
+                    if(videoFile.Length >= 100000000)
+                    {
+                        listOfVideos.Add(new DirectoryInfo(SplitVideoFolderName(videoFile.DirectoryName)));
+                    }
+                    
+                }
+            }
+
+            return listOfVideos;
+        } 
+
+        private string SplitVideoFolderName(string fullDirectoryPath)
+        {
+            string[] videoName = fullDirectoryPath.Split('\\');
+//            string[] videoName = fullDirectoryPath.Split(videoPath, StringSplitOptions.RemoveEmptyEntries)
+            return videoName[2];
         }
     
     

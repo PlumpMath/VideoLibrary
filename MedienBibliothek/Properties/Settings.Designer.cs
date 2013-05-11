@@ -22,5 +22,17 @@ namespace MedienBibliothek.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Movies")]
+        public string dirPath {
+            get {
+                return ((string)(this["dirPath"]));
+            }
+            set {
+                this["dirPath"] = value;
+            }
+        }
     }
 }
