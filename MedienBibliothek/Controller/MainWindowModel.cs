@@ -14,7 +14,8 @@ namespace MedienBibliothek.Controller
 {
     class MainWindowModel : INotifyPropertyChanged
     {
-        DirectoryInfo videoPath = new DirectoryInfo(@"c:\Movies");
+//        DirectoryInfo videoPath = new DirectoryInfo(@"c:\Movies");
+        DirectoryInfo videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
         public MainWindowModel()
         {
             RefreshButtonName = "Refresh video list";
@@ -45,7 +46,7 @@ namespace MedienBibliothek.Controller
             set
             {
                 _addVideoToListView = value;
-                OnPropertyChanged("AddVideoTiListView");
+                OnPropertyChanged("AddVideoToListView");
             }
         }
 
@@ -91,6 +92,7 @@ namespace MedienBibliothek.Controller
                     if(videoFile.Length >= 100000000)
                     {
                         listOfVideos.Add(new DirectoryInfo(SplitVideoFolderName(videoFile.DirectoryName)));
+                        
                     }
                     
                 }
@@ -99,12 +101,18 @@ namespace MedienBibliothek.Controller
             return listOfVideos;
         } 
 
+        private string SplitVideoQuality(string videoNameWithQuality, string videoName)
+        {
+            string[] videoQuality = videoNameWithQuality.Split(new string[] { videoName }, StringSplitOptions.None);
+
+            return videoQuality.Last();
+        }
+
         private string SplitVideoFolderName(string fullDirectoryPath)
         {
             string[] videoNameWithQuality = fullDirectoryPath.Split(Path.DirectorySeparatorChar);
-            string[] videoName = videoNameWithQuality.Last().Split(new string[] {"1080p" , "720p"}, StringSplitOptions.None);
-            
-
+            string[] videoName = videoNameWithQuality.Last().Split(new string[] {"1080p" , "720p"}, StringSplitOptions.RemoveEmptyEntries);
+            SplitVideoQuality(videoNameWithQuality.Last(), videoName.First());
             return videoName.First();
 
         }

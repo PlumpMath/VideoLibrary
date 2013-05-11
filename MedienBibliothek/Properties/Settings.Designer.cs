@@ -25,13 +25,13 @@ namespace MedienBibliothek.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Movies")]
-        public string dirPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\ORTYMAINSERVER\\Movies\\1 HD")]
+        public string videoPath {
             get {
-                return ((string)(this["dirPath"]));
+                return ((string)(this["videoPath"]));
             }
             set {
-                this["dirPath"] = value;
+                this["videoPath"] = value;
             }
         }
     }
