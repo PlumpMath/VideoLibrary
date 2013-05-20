@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using MedienBibliothek.Model;
@@ -20,7 +21,8 @@ namespace MedienBibliothek.Controller
         {
             RefreshButtonName = "Refresh video list";
             AddVideoToListView = new CollectionView(GetAvailableVideos());
-            VideoName = new CollectionView(GetAvailableVideos());
+//            VideoName = new CollectionView(GetAvailableVideos());
+            
         }
 
         private string _refreshButtonName;
@@ -89,17 +91,14 @@ namespace MedienBibliothek.Controller
             }
         }
 
-
-
-
         private void CheckForNewVideos()
         {
             GetAvailableVideos();
         }
 
-        private List<DirectoryInfo> GetAvailableVideos()
+        private Dictionary<string,string> GetAvailableVideos()
         {
-            var listOfVideos = new List<DirectoryInfo>();
+            var listOfVideos = new Dictionary<string, string>();
             if(videoPath.Exists)
             {
                 FileInfo[] videoFiles = videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
@@ -107,7 +106,7 @@ namespace MedienBibliothek.Controller
                 {
                     if(videoFile.Length >= 100000000)
                     {
-                        listOfVideos.Add(new DirectoryInfo(SplitVideoFolderName(videoFile.DirectoryName)));
+                        listOfVideos.Add(SplitVideoFolderName(videoFile.DirectoryName).First().Key, SplitVideoFolderName(videoFile.DirectoryName).First().Value);
                         
                     }
                     
@@ -124,12 +123,15 @@ namespace MedienBibliothek.Controller
             return videoQuality.Last();
         }
 
-        private string SplitVideoFolderName(string fullDirectoryPath)
+        private Dictionary<string,string> SplitVideoFolderName(string fullDirectoryPath)
         {
+            Dictionary<string,string> videoInfo = new Dictionary<string, string>();
+
             string[] videoNameWithQuality = fullDirectoryPath.Split(Path.DirectorySeparatorChar);
             string[] videoName = videoNameWithQuality.Last().Split(new string[] {"1080p" , "720p"}, StringSplitOptions.RemoveEmptyEntries);
-            SplitVideoQuality(videoNameWithQuality.Last(), videoName.First());
-            return videoName.First();
+            string videoquality = SplitVideoQuality(videoNameWithQuality.Last(), videoName.First());
+            videoInfo.Add(videoName.First(), videoquality);
+            return videoInfo;
 
         }
     
