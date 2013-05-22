@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -20,9 +21,10 @@ namespace MedienBibliothek.Controller
         public MainWindowModel()
         {
             RefreshButtonName = "Refresh video list";
-            AddVideoToListView = new CollectionView(GetAvailableVideos());
-//            VideoName = new CollectionView(GetAvailableVideos());
-            
+            InitialiseVideoList();
+            //AddVideoToListView = new ObservableCollection<Video>(InitialiseVideoList());
+            //            VideoName = new CollectionView(InitialiseVideoList());
+
         }
 
         private string _refreshButtonName;
@@ -52,7 +54,24 @@ namespace MedienBibliothek.Controller
                 OnPropertyChanged("VideoName");
             }
         }
-        
+
+        private ObservableCollection<Video> _videoList;
+        public ObservableCollection<Video> VideoList
+        {
+            get
+            {
+                if (_videoList == null)
+                {
+                    _videoList = new ObservableCollection<Video>();
+                }
+                return _videoList;
+            }
+            set
+            {
+                _videoList = value;
+                OnPropertyChanged("VideoList");
+            }
+        }
 
         private CollectionView _addVideoToListView;
         public CollectionView AddVideoToListView
@@ -77,7 +96,7 @@ namespace MedienBibliothek.Controller
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+
         private DelegateCommand _refreshVideoListCommand;
         public ICommand RefreshVideoListCommand
         {
@@ -93,28 +112,28 @@ namespace MedienBibliothek.Controller
 
         private void CheckForNewVideos()
         {
-            GetAvailableVideos();
+            InitialiseVideoList();
         }
 
-        private Dictionary<string,string> GetAvailableVideos()
+        private void InitialiseVideoList()
         {
-            var listOfVideos = new Dictionary<string, string>();
-            if(videoPath.Exists)
+            VideoList = new ObservableCollection<Video>();
+            if (videoPath.Exists)
             {
                 FileInfo[] videoFiles = videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
                 foreach (var videoFile in videoFiles)
                 {
-                    if(videoFile.Length >= 100000000)
+                    if (videoFile.Length >= 100000000)
                     {
-                        listOfVideos.Add(SplitVideoFolderName(videoFile.DirectoryName).First().Key, SplitVideoFolderName(videoFile.DirectoryName).First().Value);
-                        
+                        VideoList.Add(GetVideoFromPath(videoFile.DirectoryName));
+                        //listOfVideos.Add(SplitVideoFolderName(videoFile.DirectoryName).First().Key, SplitVideoFolderName(videoFile.DirectoryName).First().Value);
                     }
-                    
+
                 }
             }
 
-            return listOfVideos;
-        } 
+        }
+
 
         private string SplitVideoQuality(string videoNameWithQuality, string videoName)
         {
@@ -123,19 +142,16 @@ namespace MedienBibliothek.Controller
             return videoQuality.Last();
         }
 
-        private Dictionary<string,string> SplitVideoFolderName(string fullDirectoryPath)
+        private Video GetVideoFromPath(string fullDirectoryPath)
         {
-            Dictionary<string,string> videoInfo = new Dictionary<string, string>();
-
             string[] videoNameWithQuality = fullDirectoryPath.Split(Path.DirectorySeparatorChar);
-            string[] videoName = videoNameWithQuality.Last().Split(new string[] {"1080p" , "720p"}, StringSplitOptions.RemoveEmptyEntries);
+            string[] videoName = videoNameWithQuality.Last().Split(new string[] { "1080p", "720p" }, StringSplitOptions.RemoveEmptyEntries);
             string videoquality = SplitVideoQuality(videoNameWithQuality.Last(), videoName.First());
-            videoInfo.Add(videoName.First(), videoquality);
-            return videoInfo;
+            return new Video(videoName.First(), videoquality, fullDirectoryPath);
 
         }
-    
-    
-    
+
+
+
     }
 }
