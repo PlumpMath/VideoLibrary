@@ -3,7 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="videoPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">\\ORTYMAINSERVER\Movies\1 HD</Value>
+      <Value Profile="(Default)">C:\Movies</Value>
+    </Setting>
+    <Setting Name="vlcPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\VideoLAN\VLC\vlc.exe</Value>
     </Setting>
   </Settings>
 </SettingsFile>

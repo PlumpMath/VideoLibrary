@@ -14,18 +14,17 @@ using MedienBibliothek.Model;
 
 namespace MedienBibliothek.Controller
 {
-    class MainWindowModel : INotifyPropertyChanged
+   public class MainWindowModel : INotifyPropertyChanged
     {
+       readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
+       readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcPath);
+       public MainWindowModel()
+       {
+           RefreshButtonName = "Refresh video list";
+           InitialiseVideoList();
+       }
 
-        DirectoryInfo videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
-        public MainWindowModel()
-        {
-            RefreshButtonName = "Refresh video list";
-            InitialiseVideoList();
-            //AddVideoToListView = new ObservableCollection<Video>(InitialiseVideoList());
-            //            VideoName = new CollectionView(InitialiseVideoList());
-
-        }
+       
 
         private string _refreshButtonName;
         public string RefreshButtonName
@@ -40,6 +39,7 @@ namespace MedienBibliothek.Controller
                 OnPropertyChanged("RefreshButtonName");
             }
         }
+
 
         private CollectionView _videoName;
         public CollectionView VideoName
@@ -73,21 +73,6 @@ namespace MedienBibliothek.Controller
             }
         }
 
-        private CollectionView _addVideoToListView;
-        public CollectionView AddVideoToListView
-        {
-            get
-            {
-                return _addVideoToListView;
-            }
-            set
-            {
-                _addVideoToListView = value;
-                OnPropertyChanged("AddVideoToListView");
-            }
-        }
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -96,10 +81,7 @@ namespace MedienBibliothek.Controller
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void ListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
-        {
-        }
-
+       
         private DelegateCommand _refreshVideoListCommand;
         public ICommand RefreshVideoListCommand
         {
@@ -121,15 +103,15 @@ namespace MedienBibliothek.Controller
         private void InitialiseVideoList()
         {
             VideoList = new ObservableCollection<Video>();
-            if (videoPath.Exists)
+            if (_videoPath.Exists)
             {
-                FileInfo[] videoFiles = videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
+                FileInfo[] videoFiles = _videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
                 foreach (var videoFile in videoFiles)
                 {
                     if (videoFile.Length >= 100000000)
                     {
-                        VideoList.Add(GetVideoFromPath(videoFile.DirectoryName));
-                        //listOfVideos.Add(SplitVideoFolderName(videoFile.DirectoryName).First().Key, SplitVideoFolderName(videoFile.DirectoryName).First().Value);
+                        VideoList.Add(GetVideoFromPath(videoFile.DirectoryName.Replace('_',' '),videoFile.FullName));
+                         
                     }
 
                 }
@@ -145,12 +127,12 @@ namespace MedienBibliothek.Controller
             return videoQuality.Last();
         }
 
-        private Video GetVideoFromPath(string fullDirectoryPath)
+        private Video GetVideoFromPath(string fullDirectoryPath, string fullPathOfVideo)
         {
             string[] videoNameWithQuality = fullDirectoryPath.Split(Path.DirectorySeparatorChar);
             string[] videoName = videoNameWithQuality.Last().Split(new string[] { "1080p", "720p" }, StringSplitOptions.RemoveEmptyEntries);
             string videoquality = SplitVideoQuality(videoNameWithQuality.Last(), videoName.First());
-            return new Video(videoName.First(), videoquality, fullDirectoryPath);
+            return new Video(videoName.First(), videoquality, fullDirectoryPath, fullPathOfVideo);
 
         }
 

@@ -7,7 +7,7 @@
         <Grid.DataContext>
             <Controller:MainWindowModel/>
         </Grid.DataContext>
-            <ListView MouseDoubleClick="{Binding Path=ListView_MouseDoubleClick_1}" ItemsSource="{Binding Path=VideoList}" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
+            <ListView Name="VideoListView" MouseDoubleClick="ListViewDoubleClick"  ItemsSource="{Binding Path=VideoList}" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay}" Header="Video Name"/>

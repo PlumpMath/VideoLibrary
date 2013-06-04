@@ -25,13 +25,25 @@ namespace MedienBibliothek.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\\\\ORTYMAINSERVER\\Movies\\1 HD")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Movies")]
         public string videoPath {
             get {
                 return ((string)(this["videoPath"]));
             }
             set {
                 this["videoPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe")]
+        public string vlcPath {
+            get {
+                return ((string)(this["vlcPath"]));
+            }
+            set {
+                this["vlcPath"] = value;
             }
         }
     }
