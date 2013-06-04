@@ -21,10 +21,23 @@ namespace MedienBibliothek.Controller
        public MainWindowModel()
        {
            RefreshButtonName = "Refresh video list";
+           SearchButtonName = "Search";
            InitialiseVideoList();
        }
 
-       
+       private string _searchButtonName;
+       public string SearchButtonName
+       {
+           get
+           {
+               return _searchButtonName;
+           }
+           set
+           {
+               _searchButtonName = value;
+               OnPropertyChanged("SearchButtonName");
+           }
+       }
 
         private string _refreshButtonName;
         public string RefreshButtonName
@@ -81,7 +94,20 @@ namespace MedienBibliothek.Controller
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-       
+
+        private DelegateCommand _searchVideoListCommand;
+        public ICommand SearchVideoListCommand
+        {
+            get
+            {
+                if (_searchVideoListCommand == null)
+                {
+                    _searchVideoListCommand = new DelegateCommand(InitialiseFindListView);
+                }
+                return _searchVideoListCommand;
+            }
+        }
+
         private DelegateCommand _refreshVideoListCommand;
         public ICommand RefreshVideoListCommand
         {
@@ -94,6 +120,23 @@ namespace MedienBibliothek.Controller
                 return _refreshVideoListCommand;
             }
         }
+
+       private void InitialiseFindListView()
+       {
+            ListViewItem foundItem = VideoList.FindItemWithText(textBox1.Text, false, 0, true);
+            if (foundItem != null)
+            {
+                listview1.TopItem = foundItem;
+                listview1.TopItem.Selected = true;
+                VideoList.
+                
+            }
+       }
+
+       private GetSearchedVideo()
+       {
+           
+       }
 
         private void CheckForNewVideos()
         {
