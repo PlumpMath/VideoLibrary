@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MedienBibliothek.Model
 {
-    class Video
+    public class Video
     {
         public Video(string videoName, string videoquality, string fullDirectoryPath)
         {

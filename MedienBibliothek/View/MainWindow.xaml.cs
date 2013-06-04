@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MedienBibliothek.Model;
 
 namespace MedienBibliothek.View
 {
@@ -22,6 +23,11 @@ namespace MedienBibliothek.View
             InitializeComponent();
         }
 
+
+
+        private void ListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        {
+        }
         
 
     }

@@ -96,6 +96,9 @@ namespace MedienBibliothek.Controller
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void ListView_MouseDoubleClick_1(object sender, MouseButtonEventArgs e)
+        {
+        }
 
         private DelegateCommand _refreshVideoListCommand;
         public ICommand RefreshVideoListCommand
