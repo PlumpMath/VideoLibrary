@@ -123,6 +123,18 @@ namespace MedienBibliothek.Controller
 
        private void InitialiseFindListView()
        {
+           var filteredList = new ObservableCollection<Video>();
+           foreach (var video in VideoList)
+           {
+               if(video.Name.Contains("a"))
+               {
+                   filteredList.Add(video);
+               }
+           }
+           VideoList = filteredList;
+        
+           filteredList.setFilterCRiterium(new NameFilter("a"));
+
             ListViewItem foundItem = VideoList.FindItemWithText(textBox1.Text, false, 0, true);
             if (foundItem != null)
             {

@@ -35,7 +35,7 @@ namespace MedienBibliothek.View
             
             var startVlc = new Process();
             startVlc.StartInfo.FileName = Properties.Settings.Default.vlcPath;
-            startVlc.StartInfo.Arguments = "-v " + videoList[VideoListView.SelectedIndex].FullPath;
+            startVlc.StartInfo.Arguments = "-v \"" + videoList[VideoListView.SelectedIndex].FullPath+"\"";
             startVlc.Start();
 
            
