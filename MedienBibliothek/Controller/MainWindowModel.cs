@@ -39,6 +39,36 @@ namespace MedienBibliothek.Controller
            }
        }
 
+
+       private string _searchBoxChanged;
+       public string SearchBoxChanged
+       {
+           get
+           {
+               return _searchBoxChanged;
+           }
+           set
+           {
+               _searchBoxChanged = value;
+               OnPropertyChanged("SearchBoxChanged");
+           }
+       }
+
+      
+       private string _searchBoxContext;
+       public string SearchBoxContext
+       {
+           get
+           {
+               return _searchBoxContext;
+           }
+           set
+           {
+               _searchBoxContext = value;
+               OnPropertyChanged("SearchBoxContext");
+           }
+       }
+
         private string _refreshButtonName;
         public string RefreshButtonName
         {
@@ -126,29 +156,20 @@ namespace MedienBibliothek.Controller
            var filteredList = new ObservableCollection<Video>();
            foreach (var video in VideoList)
            {
-               if(video.Name.Contains("a"))
+               if(video.Name.ToLower().Contains(SearchBoxContext.ToLower()))
                {
                    filteredList.Add(video);
                }
+               
            }
            VideoList = filteredList;
         
-           filteredList.setFilterCRiterium(new NameFilter("a"));
+//           filteredList.setFilterCRiterium(new NameFilter("a"));
 
-            ListViewItem foundItem = VideoList.FindItemWithText(textBox1.Text, false, 0, true);
-            if (foundItem != null)
-            {
-                listview1.TopItem = foundItem;
-                listview1.TopItem.Selected = true;
-                VideoList.
-                
-            }
+            
        }
 
-       private GetSearchedVideo()
-       {
-           
-       }
+      
 
         private void CheckForNewVideos()
         {
