@@ -2,6 +2,7 @@ VideoLibrary
 ========
 
 Simple tool to find your movies in your movie folder and open it.
+The tool just work with correkt folder syntax. My mkv files dont have a id3 tag so I just take the information from the folder where the *.mkv files are inside.
 
 Features:
 

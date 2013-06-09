@@ -16,9 +16,10 @@
             </ListView.View>
         </ListView>
         <Button Content="{Binding Path=RefreshButtonName}" Command="{Binding Path=RefreshVideoListCommand}" HorizontalAlignment="Left" Margin="10,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
-        <Button Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Left" Margin="671.877,36.599,0,0" VerticalAlignment="Top" Width="79" Height="23.96"/>
-        <TextBox Text="{Binding Path=SearchBoxContext}"  HorizontalAlignment="Left" Height="33.499" Margin="501.25,27.06,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147.559"/>
-<!--        TextChanged="{Binding Path=SearchBoxChanged}"-->
+        <Button Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Left" Margin="685,10,0,0" VerticalAlignment="Top" Width="79" Height="23.96"/>
+        <TextBox Text="{Binding Path=SearchBoxContext}"  HorizontalAlignment="Left" Height="23.96" Margin="478.25,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193.559"/>
+        <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="Settings_Click_Event"/>
+        <!--        TextChanged="{Binding Path=SearchBoxChanged}"-->
 
 
     </Grid>

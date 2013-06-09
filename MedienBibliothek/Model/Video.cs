@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace MedienBibliothek.Model
+﻿namespace MedienBibliothek.Model
 {
     public class Video
     {

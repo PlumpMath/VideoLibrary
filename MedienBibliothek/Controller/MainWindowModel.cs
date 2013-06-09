@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using MedienBibliothek.Model;
@@ -162,10 +158,9 @@ namespace MedienBibliothek.Controller
                }
                
            }
+           
            VideoList = filteredList;
         
-//           filteredList.setFilterCRiterium(new NameFilter("a"));
-
             
        }
 
@@ -184,9 +179,9 @@ namespace MedienBibliothek.Controller
                 FileInfo[] videoFiles = _videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
                 foreach (var videoFile in videoFiles)
                 {
-                    if (videoFile.Length >= 100000000)
+                    if (videoFile.Length >= 150000000)
                     {
-                        VideoList.Add(GetVideoFromPath(videoFile.DirectoryName.Replace('_',' '),videoFile.FullName));
+                        VideoList.Add(GetVideoFromPath(videoFile.DirectoryName, videoFile.FullName));
                          
                     }
 
