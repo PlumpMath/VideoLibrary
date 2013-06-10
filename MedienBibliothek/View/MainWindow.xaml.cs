@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using MedienBibliothek.Controller;
-
+using MedienBibliothek.Interfaces;
 
 
 namespace MedienBibliothek.View
@@ -18,34 +19,21 @@ namespace MedienBibliothek.View
 
         private void ListViewDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var newMainTask = new MainWindowModel();
-            var videoList = newMainTask.VideoList;
-            
-            var startVlc = new Process();
-            startVlc.StartInfo.FileName = Properties.Settings.Default.vlcPath;
-            startVlc.StartInfo.Arguments = "-v \"" + videoList[VideoListView.SelectedIndex].FullPath + "\"";
-//            var test = videoList[VideoListView.SelectedItem].FullPath;
-//            var keine = test;
-//            startVlc.StartInfo.Arguments = "-v \"" + VideoListView.SelectedItems + "\"";
-//            var test = VideoListView.SelectedItem .ToString();
-           
-//            startVlc.StartInfo.Arguments = "-v \"" + videoList.Select().FullPath + "\"";
-            
-            startVlc.Start();
-
-           
+            ((IDoubleClickCommandHolder)mainGridView.DataContext).GetDoubleClickCommand().Execute(null);
+        
 
         }
 
-        private void Settings_Click_Event(object sender, RoutedEventArgs e)
+        private void SettingsClickEvent(object sender, RoutedEventArgs e)
         {
             var settings = new Settings();
             settings.Show();
         }
 
-        
 
-
-       
+        private void SearchBoxContextChanged(object sender, TextChangedEventArgs e)
+        {
+            ((IDoubleClickCommandHolder)mainGridView.DataContext).GetTextChangedCommand().Execute(e);
+        }
     }
 }

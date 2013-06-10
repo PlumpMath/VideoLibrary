@@ -1,19 +1,24 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+using MedienBibliothek.Interfaces;
 using MedienBibliothek.Model;
 
 
 namespace MedienBibliothek.Controller
 {
-   public class MainWindowModel : INotifyPropertyChanged
+   public class MainWindowModel : INotifyPropertyChanged, IDoubleClickCommandHolder
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcPath);
+
+       private Collection<Video> _originalVideoList;
+
        public MainWindowModel()
        {
            RefreshButtonName = "Refresh video list";
@@ -35,12 +40,56 @@ namespace MedienBibliothek.Controller
            }
        }
 
-
-       private string _searchBoxChanged;
-       public string SearchBoxChanged
+       private Video _selectedVideo;
+       public Video SelectedVideo
        {
            get
            {
+               return _selectedVideo;
+           }
+           set
+           {
+               _selectedVideo = value;
+               OnPropertyChanged("SelectedVideo");
+           }
+       }
+
+       private ICommand _listViewDoubleClickCommand;
+       public ICommand ListViewDoubleClickCommand
+       {
+           get
+           {
+               if(null == _listViewDoubleClickCommand)
+               {
+                   _listViewDoubleClickCommand = new DelegateCommand(HandleDoubleClickOnListItem);
+               }
+               return _listViewDoubleClickCommand;
+           }
+           set
+           {
+               _listViewDoubleClickCommand = value;
+               OnPropertyChanged("ListViewDoubleClickCommand");
+           }
+       }
+
+       private void HandleDoubleClickOnListItem()
+       {
+           var startVlc = new Process();
+           startVlc.StartInfo.FileName = Properties.Settings.Default.vlcPath;
+           startVlc.StartInfo.Arguments = "-v \"" + SelectedVideo.FullPath + "\"";
+           startVlc.Start();
+       }
+
+
+       private ICommand _searchBoxChanged;
+       public ICommand SearchBoxChanged
+       {
+           get
+           {
+               if(null == _searchBoxChanged)
+               {
+                   _searchBoxChanged = new DelegateCommand(InitialiseFindListView);
+               }
                return _searchBoxChanged;
            }
            set
@@ -134,8 +183,10 @@ namespace MedienBibliothek.Controller
             }
         }
 
-        private DelegateCommand _refreshVideoListCommand;
-        public ICommand RefreshVideoListCommand
+        
+
+       private DelegateCommand _refreshVideoListCommand;
+       public ICommand RefreshVideoListCommand
         {
             get
             {
@@ -150,7 +201,7 @@ namespace MedienBibliothek.Controller
        private void InitialiseFindListView()
        {
            var filteredList = new ObservableCollection<Video>();
-           foreach (var video in VideoList)
+           foreach (var video in _originalVideoList)
            {
                if(video.Name.ToLower().Contains(SearchBoxContext.ToLower()))
                {
@@ -160,8 +211,7 @@ namespace MedienBibliothek.Controller
            }
            
            VideoList = filteredList;
-        
-            
+      
        }
 
       
@@ -187,6 +237,7 @@ namespace MedienBibliothek.Controller
 
                 }
             }
+            _originalVideoList = new Collection<Video>(VideoList);
 
         }
 
@@ -208,6 +259,14 @@ namespace MedienBibliothek.Controller
         }
 
 
+       public ICommand GetDoubleClickCommand()
+       {
+           return ListViewDoubleClickCommand;
+       }
 
+       public ICommand GetTextChangedCommand()
+       {
+           return SearchBoxChanged;
+       }
     }
 }

@@ -51,4 +51,6 @@ namespace MedienBibliothek.Model
 
         #endregion // ICommand Members
     }
+
+
 }
