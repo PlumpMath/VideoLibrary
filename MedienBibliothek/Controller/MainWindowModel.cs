@@ -99,6 +99,24 @@ namespace MedienBibliothek.Controller
            }
        }
 
+       private ICommand _playVideoEnterKey;
+       public ICommand PlayVideoEnterKey
+       {
+           get
+           {
+               if (null == _playVideoEnterKey)
+               {
+                   _playVideoEnterKey = new DelegateCommand(InitialiseFindListView);
+               }
+               return _playVideoEnterKey;
+           }
+           set
+           {
+               _playVideoEnterKey = value;
+               OnPropertyChanged("PlayVideoEnterKey");
+           }
+       }
+
       
        private string _searchBoxContext;
        public string SearchBoxContext

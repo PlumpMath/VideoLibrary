@@ -18,7 +18,11 @@
         </ListView>
         <Button Content="{Binding Path=RefreshButtonName}" Command="{Binding Path=RefreshVideoListCommand}" HorizontalAlignment="Left" Margin="10,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
         <Button Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Left" Margin="685,10,0,0" VerticalAlignment="Top" Width="79" Height="23.96"/>
-        <TextBox Text="{Binding Path=SearchBoxContext, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextChanged="SearchBoxContextChanged"  HorizontalAlignment="Left" Height="23.96" Margin="478.25,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193.559"/>
+        <TextBox Text="{Binding Path=SearchBoxContext, UpdateSourceTrigger=PropertyChanged}" TextChanged="SearchBoxContextChanged" HorizontalAlignment="Left" Height="23.96" Margin="478.25,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193.559" >
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding Path=PlayVideoEnterKey}" Key="Enter"/>
+            </TextBox.InputBindings>
+        </TextBox>
         <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="SettingsClickEvent"/>
 
 
