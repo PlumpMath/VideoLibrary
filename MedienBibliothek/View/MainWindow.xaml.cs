@@ -35,5 +35,18 @@ namespace MedienBibliothek.View
         {
             ((IDoubleClickCommandHolder)mainGridView.DataContext).GetTextChangedCommand().Execute(e);
         }
+
+        private void TextBox_KeyDown_1(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void PressKeyEventInTextbox(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Return)
+            {
+                ((IDoubleClickCommandHolder) mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
+            }
+        }
     }
 }

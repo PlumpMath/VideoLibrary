@@ -16,7 +16,7 @@ namespace MedienBibliothek.Controller
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcPath);
-
+       
        private Collection<Video> _originalVideoList;
 
        public MainWindowModel()
@@ -106,7 +106,7 @@ namespace MedienBibliothek.Controller
            {
                if (null == _playVideoEnterKey)
                {
-                   _playVideoEnterKey = new DelegateCommand(InitialiseFindListView);
+                   _playVideoEnterKey = new DelegateCommand(PlayFirstVideoInListView);
                }
                return _playVideoEnterKey;
            }
@@ -117,7 +117,9 @@ namespace MedienBibliothek.Controller
            }
        }
 
-      
+     
+
+
        private string _searchBoxContext;
        public string SearchBoxContext
        {
@@ -216,9 +218,10 @@ namespace MedienBibliothek.Controller
             }
         }
 
+       private ObservableCollection<Video> filteredList;
        private void InitialiseFindListView()
        {
-           var filteredList = new ObservableCollection<Video>();
+           filteredList = new ObservableCollection<Video>();
            foreach (var video in _originalVideoList)
            {
                if(video.Name.ToLower().Contains(SearchBoxContext.ToLower()))
@@ -230,6 +233,18 @@ namespace MedienBibliothek.Controller
            
            VideoList = filteredList;
       
+       }
+
+       private void PlayFirstVideoInListView()
+       {
+           if(filteredList.Count == 1)
+           {
+               var startVlc = new Process();
+               startVlc.StartInfo.FileName = Properties.Settings.Default.vlcPath;
+               startVlc.StartInfo.Arguments = "-v \"" + filteredList.First().FullPath + "\"";
+               startVlc.Start();   
+           }
+         
        }
 
       
@@ -285,6 +300,11 @@ namespace MedienBibliothek.Controller
        public ICommand GetTextChangedCommand()
        {
            return SearchBoxChanged;
+       }
+
+       public ICommand GetReturnKeyEvent()
+       {
+           return PlayVideoEnterKey;
        }
     }
 }
