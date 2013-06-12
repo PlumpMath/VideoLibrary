@@ -10,9 +10,10 @@ using MedienBibliothek.Interfaces;
 using MedienBibliothek.Model;
 
 
+
 namespace MedienBibliothek.Controller
 {
-   public class MainWindowModel : INotifyPropertyChanged, IDoubleClickCommandHolder
+   public class MainWindowModel : INotifyPropertyChanged, ICommandHandler
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcPath);
@@ -24,6 +25,7 @@ namespace MedienBibliothek.Controller
            RefreshButtonName = "Refresh video list";
            SearchButtonName = "Search";
            InitialiseVideoList();
+           
        }
 
        private string _searchButtonName;
@@ -254,24 +256,21 @@ namespace MedienBibliothek.Controller
             InitialiseVideoList();
         }
 
-        private void InitialiseVideoList()
-        {
-            VideoList = new ObservableCollection<Video>();
-            if (_videoPath.Exists)
-            {
-                FileInfo[] videoFiles = _videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
-                foreach (var videoFile in videoFiles)
-                {
-                    if (videoFile.Length >= 150000000)
-                    {
-                        VideoList.Add(GetVideoFromPath(videoFile.DirectoryName, videoFile.FullName));
-                         
-                    }
-
+       public void InitialiseVideoList()
+       {
+           VideoList = new ObservableCollection<Video>();
+           if (_videoPath.Exists)
+           {
+               FileInfo[] videoFiles = _videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
+               foreach (var videoFile in videoFiles)
+               {
+                   if (videoFile.Length >= 150000000)
+                   {
+                       VideoList.Add(GetVideoFromPath(videoFile.DirectoryName, videoFile.FullName));
+                   }
                 }
             }
             _originalVideoList = new Collection<Video>(VideoList);
-
         }
 
 

@@ -19,7 +19,7 @@ namespace MedienBibliothek.View
 
         private void ListViewDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ((IDoubleClickCommandHolder)mainGridView.DataContext).GetDoubleClickCommand().Execute(null);
+            ((ICommandHandler)mainGridView.DataContext).GetDoubleClickCommand().Execute(null);
         
 
         }
@@ -33,19 +33,14 @@ namespace MedienBibliothek.View
 
         private void SearchBoxContextChanged(object sender, TextChangedEventArgs e)
         {
-            ((IDoubleClickCommandHolder)mainGridView.DataContext).GetTextChangedCommand().Execute(e);
-        }
-
-        private void TextBox_KeyDown_1(object sender, KeyEventArgs e)
-        {
-
+            ((ICommandHandler)mainGridView.DataContext).GetTextChangedCommand().Execute(e);
         }
 
         private void PressKeyEventInTextbox(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Return)
             {
-                ((IDoubleClickCommandHolder) mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
+                ((ICommandHandler) mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
             }
         }
     }

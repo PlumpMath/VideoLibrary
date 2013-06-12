@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace MedienBibliothek.Interfaces
 {
-    interface IDoubleClickCommandHolder
+    interface ICommandHandler
     {
         ICommand GetDoubleClickCommand();
         ICommand GetTextChangedCommand();

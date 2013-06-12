@@ -46,5 +46,17 @@ namespace MedienBibliothek.Properties {
                 this["vlcPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Movies\\TestExcel.xls")]
+        public string excelPath {
+            get {
+                return ((string)(this["excelPath"]));
+            }
+            set {
+                this["excelPath"] = value;
+            }
+        }
     }
 }

@@ -8,5 +8,8 @@
     <Setting Name="vlcPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files (x86)\VideoLAN\VLC\vlc.exe</Value>
     </Setting>
+    <Setting Name="excelPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Movies\TestExcel.xls</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
