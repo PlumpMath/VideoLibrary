@@ -9,13 +9,14 @@ Features:
 - Find *.mkv files and list it
 - Open videos with double click
 - Search function
-
-New since 9.6.2013:
-
 - Option page to edit vlc path and movie path
+
+New since 12.6.2013:
+
+- Just in time search
+- open the searched movie with enter n the search field
 
 Comming up:
 
-- Just in time search, without search button
-- Different movie types, not just *.mkv like now
 - Create Excel file with your movies and location of the movies
+- Different movie types, not just *.mkv like now
