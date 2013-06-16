@@ -248,7 +248,10 @@ namespace MedienBibliothek.Controller
 
        private void InitialiseExcelFile()
        {
-           
+//           var fileChooser = new FileChooser'
+           var createExcelFile = new WriteExcelFileHelper();
+
+           createExcelFile.WriteVideoListToExcelFile(VideoList);
        }
 
        private ObservableCollection<Video> filteredList;
