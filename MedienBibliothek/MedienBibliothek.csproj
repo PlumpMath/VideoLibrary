@@ -82,7 +82,7 @@
     <Compile Include="Interfaces\CommandHandler.cs" />
     <Compile Include="Model\DelegateCommand.cs" />
     <Compile Include="Model\Video.cs" />
-    <Compile Include="Model\WriteVideosToExcel.cs" />
+    <Compile Include="Controller\WriteExcelFileHelper.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>

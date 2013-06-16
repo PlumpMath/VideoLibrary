@@ -23,6 +23,7 @@ namespace MedienBibliothek.Controller
        public MainWindowModel()
        {
            RefreshButtonName = "Refresh video list";
+           CreateExcelFileButtonName = "Create excel file";
            SearchButtonName = "Search";
            InitialiseVideoList();
            
@@ -150,6 +151,20 @@ namespace MedienBibliothek.Controller
             }
         }
 
+        private string _createExcelFileButtonName;
+        public string CreateExcelFileButtonName
+        {
+            get
+            {
+                return _createExcelFileButtonName;
+            }
+            set
+            {
+                _createExcelFileButtonName = value;
+                OnPropertyChanged("CreateExcelFileButtonName");
+            }
+        }
+
 
         private CollectionView _videoName;
         public CollectionView VideoName
@@ -165,60 +180,76 @@ namespace MedienBibliothek.Controller
             }
         }
 
-        private ObservableCollection<Video> _videoList;
-        public ObservableCollection<Video> VideoList
-        {
-            get
-            {
-                if (_videoList == null)
-                {
-                    _videoList = new ObservableCollection<Video>();
-                }
-                return _videoList;
-            }
-            set
-            {
-                _videoList = value;
-                OnPropertyChanged("VideoList");
-            }
-        }
+       private ObservableCollection<Video> _videoList;
+       public ObservableCollection<Video> VideoList
+       {
+           get
+           {
+               if (_videoList == null)
+               {
+                   _videoList = new ObservableCollection<Video>();
+               }
+               return _videoList;
+           }
+           set
+           {
+               _videoList = value;
+               OnPropertyChanged("VideoList");
+           }
+       }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+       public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
+       protected virtual void OnPropertyChanged(string propertyName)
+       {
+           PropertyChangedEventHandler handler = PropertyChanged;
+           if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+       }
 
 
-        private DelegateCommand _searchVideoListCommand;
-        public ICommand SearchVideoListCommand
-        {
-            get
-            {
-                if (_searchVideoListCommand == null)
-                {
-                    _searchVideoListCommand = new DelegateCommand(InitialiseFindListView);
-                }
-                return _searchVideoListCommand;
-            }
-        }
-
-        
+       private DelegateCommand _searchVideoListCommand;
+       public ICommand SearchVideoListCommand
+       {
+           get
+           {
+               if (_searchVideoListCommand == null)
+               {
+                   _searchVideoListCommand = new DelegateCommand(InitialiseFindListView);
+               }
+               return _searchVideoListCommand;
+           }
+       }
 
        private DelegateCommand _refreshVideoListCommand;
        public ICommand RefreshVideoListCommand
-        {
-            get
-            {
-                if (_refreshVideoListCommand == null)
-                {
-                    _refreshVideoListCommand = new DelegateCommand(CheckForNewVideos);
-                }
-                return _refreshVideoListCommand;
-            }
-        }
+       {
+           get
+           {
+               if (_refreshVideoListCommand == null)
+               {
+                   _refreshVideoListCommand = new DelegateCommand(CheckForNewVideos);
+               }
+               return _refreshVideoListCommand;
+           }
+       }
+
+       private DelegateCommand _createExcelFileCommand;
+       public ICommand CreateExcelFileCommand
+       {
+           get
+           {
+               if (_createExcelFileCommand == null)
+               {
+                   _createExcelFileCommand = new DelegateCommand(InitialiseExcelFile);
+               }
+               return _createExcelFileCommand;
+           }
+       }
+
+       private void InitialiseExcelFile()
+       {
+           
+       }
 
        private ObservableCollection<Video> filteredList;
        private void InitialiseFindListView()

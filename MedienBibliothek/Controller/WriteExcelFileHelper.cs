@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Excel = Microsoft.Office.Interop.Excel;
+﻿using System.IO;
 
-namespace MedienBibliothek.Model
+namespace MedienBibliothek.Controller
 {
-    class WriteVideosToExcel
+    class WriteExcelFileHelper
     {
         public void WriteVideoListToExcel()
         {
@@ -15,7 +10,7 @@ namespace MedienBibliothek.Model
             {
                 File.Create(Properties.Settings.Default.excelPath);
             }
-            var excelWriter = new Excel.Application();
+            var excelWriter = new Microsoft.Office.Interop.Excel.Application();
             excelWriter.Visible = true;
             excelWriter.Workbooks.Open(Properties.Settings.Default.excelPath);
             excelWriter.Cells[1, 1] = "test";

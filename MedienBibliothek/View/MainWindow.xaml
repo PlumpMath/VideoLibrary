@@ -24,6 +24,7 @@
 <!--            </TextBox.InputBindings>-->
         </TextBox>
         <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="SettingsClickEvent"/>
+        <Button Content="{Binding CreateExcelFileButtonName}" Command="{Binding CreateExcelFileCommand}" HorizontalAlignment="Left" Margin="158,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
 
 
 
