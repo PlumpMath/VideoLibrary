@@ -29,6 +29,9 @@ namespace MedienBibliothek.Controller
 
         private void WriteVideoList(IEnumerable<Video> videoList)
         {
+            _wsheet.Cells[1, 1] = "Video name";
+            _wsheet.Cells[1, 2] = "Video quality";
+            _wsheet.Cells[1, 3] = "Video path";
             int counter = 2;
             foreach (var video in videoList)
             {
