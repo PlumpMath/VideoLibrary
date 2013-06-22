@@ -15,9 +15,9 @@ namespace MedienBibliothek.Controller
         public void WriteVideoListToExcelFile(IEnumerable<Video> videoList)
         {
             
-            if (!File.Exists(Properties.Settings.Default.excelPath))
+            if (!File.Exists(Properties.Settings.Default.excelFile))
             {
-                var myExcelFile = File.Create(Properties.Settings.Default.excelPath);
+                var myExcelFile = File.Create(Properties.Settings.Default.excelFile);
                 myExcelFile.Close();
             }
             _excelWriterApp.Visible = false;
@@ -40,7 +40,7 @@ namespace MedienBibliothek.Controller
                 WriteValueInCell(3, counter, video.Path);
                 counter++;
             }
-            _wbook.SaveAs(Properties.Settings.Default.excelPath);
+            _wbook.SaveAs(Properties.Settings.Default.excelFile);
             _wbook.Close();
         }
 

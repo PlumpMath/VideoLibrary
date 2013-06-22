@@ -16,7 +16,7 @@ namespace MedienBibliothek.Controller
    public class MainWindowModel : INotifyPropertyChanged, ICommandHandler
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
-       readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcPath);
+       readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcFilePath);
        
        private Collection<Video> _originalVideoList;
 
@@ -78,7 +78,7 @@ namespace MedienBibliothek.Controller
        private void HandleDoubleClickOnListItem()
        {
            var startVlc = new Process();
-           startVlc.StartInfo.FileName = Properties.Settings.Default.vlcPath;
+           startVlc.StartInfo.FileName = Properties.Settings.Default.vlcFilePath;
            startVlc.StartInfo.Arguments = "-v \"" + SelectedVideo.FullPath + "\"";
            startVlc.Start();
        }
@@ -276,7 +276,7 @@ namespace MedienBibliothek.Controller
            if(filteredList.Count == 1)
            {
                var startVlc = new Process();
-               startVlc.StartInfo.FileName = Properties.Settings.Default.vlcPath;
+               startVlc.StartInfo.FileName = Properties.Settings.Default.vlcFilePath;
                startVlc.StartInfo.Arguments = "-v \"" + filteredList.First().FullPath + "\"";
                startVlc.Start();   
            }

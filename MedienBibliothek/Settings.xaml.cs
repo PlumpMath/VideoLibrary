@@ -28,7 +28,7 @@ namespace MedienBibliothek
             
             InitializeComponent();
             VideoFolderPathBox.Text = Properties.Settings.Default.videoPath;
-            VlcExecPathBox.Text = Properties.Settings.Default.vlcPath;
+            VlcExecPathBox.Text = Properties.Settings.Default.vlcFilePath;
         }
 
         
@@ -52,7 +52,7 @@ namespace MedienBibliothek
             }
             else
             {
-                Properties.Settings.Default.vlcPath = VlcExecPathBox.Text;
+                Properties.Settings.Default.vlcFilePath = VlcExecPathBox.Text;
             }
 
             Close();

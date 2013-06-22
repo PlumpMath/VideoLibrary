@@ -37,25 +37,25 @@ namespace MedienBibliothek.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe")]
-        public string vlcPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Movies\\VideList.xls")]
+        public string excelFile {
             get {
-                return ((string)(this["vlcPath"]));
+                return ((string)(this["excelFile"]));
             }
             set {
-                this["vlcPath"] = value;
+                this["excelFile"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Movies\\VideList.xls")]
-        public string excelPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe")]
+        public string vlcFilePath {
             get {
-                return ((string)(this["excelPath"]));
+                return ((string)(this["vlcFilePath"]));
             }
             set {
-                this["excelPath"] = value;
+                this["vlcFilePath"] = value;
             }
         }
     }

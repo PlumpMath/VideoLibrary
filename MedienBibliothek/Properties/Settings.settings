@@ -5,11 +5,11 @@
     <Setting Name="videoPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Movies</Value>
     </Setting>
-    <Setting Name="vlcPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Program Files (x86)\VideoLAN\VLC\vlc.exe</Value>
-    </Setting>
-    <Setting Name="excelPath" Type="System.String" Scope="User">
+    <Setting Name="excelFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Movies\VideList.xls</Value>
+    </Setting>
+    <Setting Name="vlcFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Program Files (x86)\VideoLAN\VLC\vlc.exe</Value>
     </Setting>
   </Settings>
 </SettingsFile>
