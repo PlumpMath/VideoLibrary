@@ -11,5 +11,8 @@
     <Setting Name="vlcFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files (x86)\VideoLAN\VLC\vlc.exe</Value>
     </Setting>
+    <Setting Name="jdownloaderVideoPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Jdownloader</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

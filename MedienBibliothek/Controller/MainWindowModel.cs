@@ -17,12 +17,14 @@ namespace MedienBibliothek.Controller
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcFilePath);
+       readonly DirectoryInfo _jdownloaderVideoPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
        
        private Collection<Video> _originalVideoList;
 
        public MainWindowModel()
        {
            RefreshButtonName = "Refresh video list";
+           JdownloaderButtonName = "Get jdwonloader videos";
            CreateExcelFileButtonName = "Create excel file";
            SearchButtonName = "Search";
            InitialiseVideoList();
@@ -151,6 +153,20 @@ namespace MedienBibliothek.Controller
             }
         }
 
+        private string _jdownloaderButtonName;
+        public string JdownloaderButtonName
+        {
+            get
+            {
+                return _jdownloaderButtonName;
+            }
+            set
+            {
+                _jdownloaderButtonName = value;
+                OnPropertyChanged("JdownloaderButtonName");
+            }
+        }
+
         private string _createExcelFileButtonName;
         public string CreateExcelFileButtonName
         {
@@ -198,6 +214,24 @@ namespace MedienBibliothek.Controller
            }
        }
 
+       private ObservableCollection<JdownloaderVideo> _jdownloaderVideoList;
+       public ObservableCollection<JdownloaderVideo> JdownloaderVideoList
+       {
+           get
+           {
+               if (_jdownloaderVideoList == null)
+               {
+                   _jdownloaderVideoList = new ObservableCollection<JdownloaderVideo>();
+               }
+               return _jdownloaderVideoList;
+           }
+           set
+           {
+               _jdownloaderVideoList = value;
+               OnPropertyChanged("JdownloaderVideoList");
+           }
+       }
+
        public event PropertyChangedEventHandler PropertyChanged;
 
        protected virtual void OnPropertyChanged(string propertyName)
@@ -230,6 +264,19 @@ namespace MedienBibliothek.Controller
                    _refreshVideoListCommand = new DelegateCommand(CheckForNewVideos);
                }
                return _refreshVideoListCommand;
+           }
+       }
+
+       private DelegateCommand _refreshJdownloaderVideoListCommand;
+       public ICommand RefreshJdownloaderVideoListCommand
+       {
+           get
+           {
+               if (_refreshJdownloaderVideoListCommand == null)
+               {
+                   _refreshJdownloaderVideoListCommand = new DelegateCommand(CheckForJdownloaderVideos);
+               }
+               return _refreshJdownloaderVideoListCommand;
            }
        }
 
@@ -290,6 +337,23 @@ namespace MedienBibliothek.Controller
             InitialiseVideoList();
         }
 
+        private void CheckForJdownloaderVideos()
+        {
+            JdownloaderVideoList = new ObservableCollection<JdownloaderVideo>();
+            if(_jdownloaderVideoPath.Exists)
+            {
+                FileInfo[] videoFiles = _jdownloaderVideoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
+                foreach (var videoFile in videoFiles)
+                {
+                    if (videoFile.Length >= 200000000)
+                    {
+                        if (videoFile.Directory != null)
+                            JdownloaderVideoList.Add(new JdownloaderVideo(videoFile.Directory.ToString()));
+                    }
+                }
+            }
+        }
+
        public void InitialiseVideoList()
        {
            VideoList = new ObservableCollection<Video>();
@@ -298,7 +362,7 @@ namespace MedienBibliothek.Controller
                FileInfo[] videoFiles = _videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
                foreach (var videoFile in videoFiles)
                {
-                   if (videoFile.Length >= 150000000)
+                   if (videoFile.Length >= 200000000)
                    {
                        VideoList.Add(GetVideoFromPath(videoFile.DirectoryName, videoFile.FullName));
                    }

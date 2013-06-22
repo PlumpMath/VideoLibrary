@@ -58,5 +58,17 @@ namespace MedienBibliothek.Properties {
                 this["vlcFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Jdownloader")]
+        public string jdownloaderVideoPath {
+            get {
+                return ((string)(this["jdownloaderVideoPath"]));
+            }
+            set {
+                this["jdownloaderVideoPath"] = value;
+            }
+        }
     }
 }

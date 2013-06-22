@@ -25,6 +25,15 @@
         </TextBox>
         <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="SettingsClickEvent"/>
         <Button Content="{Binding CreateExcelFileButtonName}" Command="{Binding CreateExcelFileCommand}" HorizontalAlignment="Left" Margin="158,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
+        <ListView Name="JdownloaderListView" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="121" Margin="10,288,0,0" VerticalAlignment="Top" Width="754">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=JdownloaderVideoPath, Mode=TwoWay}" Header="Video Name"/>
+<!--                    <GridViewColumn/>-->
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Content="{Binding JdownloaderButtonName}" Command="{Binding RefreshJdownloaderVideoListCommand}" HorizontalAlignment="Left" Margin="332,435.04,0,0" VerticalAlignment="Top" Width="133" Height="23.96"/>
 
 
 
