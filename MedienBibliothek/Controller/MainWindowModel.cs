@@ -8,7 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using MedienBibliothek.Interfaces;
 using MedienBibliothek.Model;
-
+using MedienBibliothek.View;
 
 
 namespace MedienBibliothek.Controller
@@ -59,12 +59,26 @@ namespace MedienBibliothek.Controller
            }
        }
 
+       private JdownloaderVideo _selectedJdownloaderFile;
+       public JdownloaderVideo SelectedJdownloaderFile
+       {
+           get
+           {
+               return _selectedJdownloaderFile;
+           }
+           set
+           {
+               _selectedJdownloaderFile = value;
+               OnPropertyChanged("SelectedJdownloaderFile");
+           }
+       }
+
        private ICommand _listViewDoubleClickCommand;
        public ICommand ListViewDoubleClickCommand
        {
            get
            {
-               if(null == _listViewDoubleClickCommand)
+               if (null == _listViewDoubleClickCommand)
                {
                    _listViewDoubleClickCommand = new DelegateCommand(HandleDoubleClickOnListItem);
                }
@@ -75,6 +89,30 @@ namespace MedienBibliothek.Controller
                _listViewDoubleClickCommand = value;
                OnPropertyChanged("ListViewDoubleClickCommand");
            }
+       }
+
+       private ICommand _jdownloaderListViewDoubleClickCommand;
+       public ICommand JdownloaderListViewDoubleClickCommand
+       {
+           get
+           {
+               if (null == _jdownloaderListViewDoubleClickCommand)
+               {
+                   _jdownloaderListViewDoubleClickCommand = new DelegateCommand(HandleDoubleClickOnJdownloaderItem);
+               }
+               return _jdownloaderListViewDoubleClickCommand;
+           }
+           set
+           {
+               _jdownloaderListViewDoubleClickCommand = value;
+               OnPropertyChanged("JdownloaderListViewDoubleClickCommand");
+           }
+       }
+
+       private void HandleDoubleClickOnJdownloaderItem()
+       {
+           var jdownloaderDialog = new JdownloaderViewWindow(SelectedJdownloaderFile.ToString());
+           jdownloaderDialog.Show();
        }
 
        private void HandleDoubleClickOnListItem()
@@ -402,6 +440,11 @@ namespace MedienBibliothek.Controller
        public ICommand GetReturnKeyEvent()
        {
            return PlayVideoEnterKey;
+       }
+
+       public ICommand GetSelectionChangedEvent()
+       {
+           return JdownloaderListViewDoubleClickCommand;
        }
     }
 }

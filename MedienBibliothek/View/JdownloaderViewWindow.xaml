@@ -1,0 +1,13 @@
+﻿<Window x:Class="MedienBibliothek.View.JdownloaderViewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controller="clr-namespace:MedienBibliothek.Controller" 
+        Title="JdownloaderViewWindow" Height="178" Width="392">
+    <Grid Name="mainGridView">
+        <Grid.DataContext>
+            <Controller:JdownloaderWindowModel/>
+        </Grid.DataContext>
+
+        
+            </Grid>
+</Window>

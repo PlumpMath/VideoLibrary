@@ -43,5 +43,12 @@ namespace MedienBibliothek.View
                 ((ICommandHandler) mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
             }
         }
+
+        private void JdownloaderListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ((ICommandHandler)mainGridView.DataContext).GetSelectionChangedEvent().Execute(e);
+        }
+
+
     }
 }
