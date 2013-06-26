@@ -1,13 +1,14 @@
 ﻿<Window x:Class="MedienBibliothek.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
         xmlns:Controller="clr-namespace:MedienBibliothek.Controller" 
         Title="MainWindow" Height="500" Width="782">
     <Grid Name="mainGridView">
         <Grid.DataContext>
             <Controller:MainWindowModel/>
         </Grid.DataContext>
-            <ListView Name="VideoListView" SelectedValue="{Binding Path=SelectedVideo}" MouseDoubleClick="ListViewDoubleClick" ItemsSource="{Binding Path=VideoList}" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
+            <ListView Name="VideoListView" AllowDrop="True" SelectedValue="{Binding Path=SelectedVideo}" MouseDoubleClick="ListViewDoubleClick" ItemsSource="{Binding Path=VideoList}" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
 
                 <ListView.View>
                 <GridView>
@@ -19,13 +20,12 @@
         <Button Content="{Binding Path=RefreshButtonName}" Command="{Binding Path=RefreshVideoListCommand}" HorizontalAlignment="Left" Margin="10,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
         <Button Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Left" Margin="685,10,0,0" VerticalAlignment="Top" Width="79" Height="23.96"/>
         <TextBox Text="{Binding Path=SearchBoxContext, UpdateSourceTrigger=PropertyChanged}" KeyDown="PressKeyEventInTextbox" TextChanged="SearchBoxContextChanged" HorizontalAlignment="Left" Height="23.96" Margin="478.25,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193.559" >
-<!--            <TextBox.InputBindings>-->
-<!--                <KeyBinding Command="{Binding Path=PlayVideoEnterKey}" Key="Enter"/>-->
-<!--            </TextBox.InputBindings>-->
+
         </TextBox>
         <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="SettingsClickEvent"/>
         <Button Content="{Binding CreateExcelFileButtonName}" Command="{Binding CreateExcelFileCommand}" HorizontalAlignment="Left" Margin="158,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
-        <ListView Name="JdownloaderListView" SelectedValue="{Binding Path=SelectedJdownloaderFile}" SelectionChanged="JdownloaderListViewSelectionChanged" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="121" Margin="10,288,0,0" VerticalAlignment="Top" Width="754">
+        <ListView Name="JdownloaderListView" dd:DragDrop.IsDragSource="True"  SelectedValue="{Binding Path=SelectedJdownloaderFile}" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="121" Margin="10,288,0,0" VerticalAlignment="Top" Width="754">
+<!--            PreviewMouseLeftButtonDown="SearchAreaGrid_PatientResults_PreviewMouseLeftButtonDown"-->
             <ListView.View >
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=JdownloaderVideoPath, Mode=TwoWay}" Header="Video Name"/>

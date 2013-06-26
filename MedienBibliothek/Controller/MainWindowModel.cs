@@ -31,6 +31,7 @@ namespace MedienBibliothek.Controller
            
        }
 
+       #region Get/Set
        private string _searchButtonName;
        public string SearchButtonName
        {
@@ -109,27 +110,12 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private void HandleDoubleClickOnJdownloaderItem()
-       {
-           var jdownloaderDialog = new JdownloaderViewWindow(SelectedJdownloaderFile.ToString());
-           jdownloaderDialog.Show();
-       }
-
-       private void HandleDoubleClickOnListItem()
-       {
-           var startVlc = new Process();
-           startVlc.StartInfo.FileName = Properties.Settings.Default.vlcFilePath;
-           startVlc.StartInfo.Arguments = "-v \"" + SelectedVideo.FullPath + "\"";
-           startVlc.Start();
-       }
-
-
        private ICommand _searchBoxChanged;
        public ICommand SearchBoxChanged
        {
            get
            {
-               if(null == _searchBoxChanged)
+               if (null == _searchBoxChanged)
                {
                    _searchBoxChanged = new DelegateCommand(InitialiseFindListView);
                }
@@ -160,7 +146,7 @@ namespace MedienBibliothek.Controller
            }
        }
 
-     
+
 
 
        private string _searchBoxContext;
@@ -177,62 +163,62 @@ namespace MedienBibliothek.Controller
            }
        }
 
-        private string _refreshButtonName;
-        public string RefreshButtonName
-        {
-            get
-            {
-                return _refreshButtonName;
-            }
-            set
-            {
-                _refreshButtonName = value;
-                OnPropertyChanged("RefreshButtonName");
-            }
-        }
+       private string _refreshButtonName;
+       public string RefreshButtonName
+       {
+           get
+           {
+               return _refreshButtonName;
+           }
+           set
+           {
+               _refreshButtonName = value;
+               OnPropertyChanged("RefreshButtonName");
+           }
+       }
 
-        private string _jdownloaderButtonName;
-        public string JdownloaderButtonName
-        {
-            get
-            {
-                return _jdownloaderButtonName;
-            }
-            set
-            {
-                _jdownloaderButtonName = value;
-                OnPropertyChanged("JdownloaderButtonName");
-            }
-        }
+       private string _jdownloaderButtonName;
+       public string JdownloaderButtonName
+       {
+           get
+           {
+               return _jdownloaderButtonName;
+           }
+           set
+           {
+               _jdownloaderButtonName = value;
+               OnPropertyChanged("JdownloaderButtonName");
+           }
+       }
 
-        private string _createExcelFileButtonName;
-        public string CreateExcelFileButtonName
-        {
-            get
-            {
-                return _createExcelFileButtonName;
-            }
-            set
-            {
-                _createExcelFileButtonName = value;
-                OnPropertyChanged("CreateExcelFileButtonName");
-            }
-        }
+       private string _createExcelFileButtonName;
+       public string CreateExcelFileButtonName
+       {
+           get
+           {
+               return _createExcelFileButtonName;
+           }
+           set
+           {
+               _createExcelFileButtonName = value;
+               OnPropertyChanged("CreateExcelFileButtonName");
+           }
+       }
 
 
-        private CollectionView _videoName;
-        public CollectionView VideoName
-        {
-            get
-            {
-                return _videoName;
-            }
-            set
-            {
-                _videoName = value;
-                OnPropertyChanged("VideoName");
-            }
-        }
+       private CollectionView _videoName;
+       public CollectionView VideoName
+       {
+           get
+           {
+               return _videoName;
+           }
+           set
+           {
+               _videoName = value;
+               OnPropertyChanged("VideoName");
+           }
+       }
 
        private ObservableCollection<Video> _videoList;
        public ObservableCollection<Video> VideoList
@@ -269,15 +255,6 @@ namespace MedienBibliothek.Controller
                OnPropertyChanged("JdownloaderVideoList");
            }
        }
-
-       public event PropertyChangedEventHandler PropertyChanged;
-
-       protected virtual void OnPropertyChanged(string propertyName)
-       {
-           PropertyChangedEventHandler handler = PropertyChanged;
-           if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-       }
-
 
        private DelegateCommand _searchVideoListCommand;
        public ICommand SearchVideoListCommand
@@ -331,11 +308,40 @@ namespace MedienBibliothek.Controller
            }
        }
 
+       #endregion Get/Set
+       
+
+       private void HandleDoubleClickOnJdownloaderItem()
+       {
+           var jdownloaderDialog = new JdownloaderViewWindow(SelectedJdownloaderFile.ToString());
+           jdownloaderDialog.Show();
+       }
+
+       private void HandleDoubleClickOnListItem()
+       {
+           var startVlc = new Process();
+           startVlc.StartInfo.FileName = Properties.Settings.Default.vlcFilePath;
+           startVlc.StartInfo.Arguments = "-v \"" + SelectedVideo.FullPath + "\"";
+           startVlc.Start();
+       }
+
+
+       
+
+       public event PropertyChangedEventHandler PropertyChanged;
+
+       protected virtual void OnPropertyChanged(string propertyName)
+       {
+           PropertyChangedEventHandler handler = PropertyChanged;
+           if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+       }
+
+
+       
+
        private void InitialiseExcelFile()
        {
-//           var fileChooser = new FileChooser'
            var createExcelFile = new WriteExcelFileHelper();
-
            createExcelFile.WriteVideoListToExcelFile(VideoList);
        }
 
