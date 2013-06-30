@@ -5,6 +5,7 @@ using System.Reflection;
 using MedienBibliothek.Model;
 using Microsoft.Office.Interop.Excel;
 
+
 namespace MedienBibliothek.Controller
 {
     class WriteExcelFileHelper
@@ -23,7 +24,7 @@ namespace MedienBibliothek.Controller
             _excelWriterApp.Visible = false;
             _excelWriterApp.DisplayAlerts = false;
             _wbook = _excelWriterApp.Workbooks.Add(true);
-            _wsheet = (Worksheet)_wbook.ActiveSheet;
+            _wsheet = _wbook.ActiveSheet as Worksheet;
             WriteVideoList(videoList);
         }
 

@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
+using GongSolutions.Wpf.DragDrop;
 using MedienBibliothek.Interfaces;
 using MedienBibliothek.Model;
 using MedienBibliothek.View;
@@ -13,7 +16,7 @@ using MedienBibliothek.View;
 
 namespace MedienBibliothek.Controller
 {
-   public class MainWindowModel : INotifyPropertyChanged, ICommandHandler
+   public class MainWindowViewModel : INotifyPropertyChanged, ICommandHandler, IDropTarget, IDragSource
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcFilePath);
@@ -21,7 +24,7 @@ namespace MedienBibliothek.Controller
        
        private Collection<Video> _originalVideoList;
 
-       public MainWindowModel()
+       public MainWindowViewModel()
        {
            RefreshButtonName = "Refresh video list";
            JdownloaderButtonName = "Get jdwonloader videos";
@@ -32,6 +35,9 @@ namespace MedienBibliothek.Controller
        }
 
        #region Get/Set
+
+       
+
        private string _searchButtonName;
        public string SearchButtonName
        {
@@ -451,6 +457,37 @@ namespace MedienBibliothek.Controller
        public ICommand GetSelectionChangedEvent()
        {
            return JdownloaderListViewDoubleClickCommand;
+       }
+
+       public void DragOver(IDropInfo dropInfo)
+       {
+           if (dropInfo.Data is MainWindowViewModel || dropInfo.Data
+           is JdownloaderVideo)
+           {
+               dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
+               dropInfo.Effects = DragDropEffects.Move;
+           }
+       }
+
+       public void Drop(IDropInfo dropInfo)
+       {
+           var video = dropInfo.Data as JdownloaderVideo;
+           var dragVideo = new Video("my test video", "", "", "" );
+           VideoList.Add(dragVideo);
+       }
+
+       public void StartDrag(IDragInfo dragInfo)
+       {
+           var selectedVideo = (JdownloaderVideo)dragInfo.SourceItem;
+           dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+           dragInfo.Data = selectedVideo;
+          
+       }
+
+       public void Dropped(IDropInfo dropInfo)
+       {
+
+           
        }
     }
 }
