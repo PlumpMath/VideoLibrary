@@ -9,39 +9,90 @@ using System.Windows.Input;
 using MedienBibliothek.Model;
 using MedienBibliothek.View;
 
+//using MedienBibliothek.View;
+
 namespace MedienBibliothek.Controller
 {
-    class JdownloaderWindowViewModel
+    public class JdownloaderWindowViewModel : INotifyPropertyChanged
     {
-//        List<string> _folderCollection = new List<string>();  
+        public static string MoviePath;
+        //            MoviePath = moviePath;
+        private string _qualityType;
         private string _jdownloaderMoviePath;
-        private string _destinationMoviePathName;
-        public JdownloaderWindowViewModel()
+        private string _destinationFolderName;
+        
+        public  JdownloaderWindowViewModel(string path)
         {
+            
             RenameAndMoveButton = "Rename and move";
             CheckBox720P = "720p";
             CheckBox1080P = "1080p";
+            InitializeJdownloaderDialog(path);
+//            _jdownloaderMoviePath = moviePath;
+//            var jdownloaderDialog = new JdownloaderWindow();
+//            jdownloaderDialog.Show();
         }
         
         #region Get/Set
         
-        private string _jdownloaderRenameName;
-        public string JdownloaderRenameName
+        private string _jdownloaderRenameNameBox;
+        public string JdownloaderRenameNameBox
         {
             get
             {
-                return _jdownloaderRenameName;
+                return _jdownloaderRenameNameBox;
             }
             set
             {
-                _jdownloaderRenameName = value;
-                OnPropertyChanged("JdownloaderRenameName");
+                _jdownloaderRenameNameBox = value;
+                OnPropertyChanged("JdownloaderRenameNameBox");
             }
         }
 
         public string RenameAndMoveButton { get; set; }
         public string CheckBox720P { get; set; }
         public string CheckBox1080P { get; set; }
+
+
+        private bool _checkBox720PIsChecked;
+        public bool CheckBox720PIsChecked
+        {
+            get
+            {
+                return _checkBox720PIsChecked;
+            }
+            set
+            {
+                _checkBox720PIsChecked = value;
+                if (value)
+                {
+                    _qualityType = "720p";
+                    CheckBox1080PIsChecked = false;
+
+                }
+                OnPropertyChanged("CheckBox720PIsChecked");
+            }
+        }
+
+        private bool _checkBox1080PIsChecked;
+        public bool CheckBox1080PIsChecked
+        {
+            get
+            {
+                return _checkBox1080PIsChecked;
+            }
+            set
+            {
+                _checkBox1080PIsChecked = value;
+                if (value)
+                {
+                    _qualityType = "1080p";
+                    CheckBox720PIsChecked = false;
+
+                }
+                OnPropertyChanged("CheckBox1080PIsChecked");
+            }
+        }
 
         private DelegateCommand _renameAndMoveCommand;
         public ICommand RenameAndMoveCommand
@@ -72,20 +123,48 @@ namespace MedienBibliothek.Controller
 
         public void InitializeJdownloaderDialog(string moviePath)
         {
-            var jdownloaderDialog = new JdownloaderViewWindow();
-            jdownloaderDialog.Show();
-            _jdownloaderMoviePath = moviePath;
+            MoviePath = moviePath;
+            CheckTheQuality(moviePath);
+            if (_jdownloaderMoviePath == null)
+                _jdownloaderMoviePath = moviePath;
+//            var jdownloaderDialog = new JdownloaderWindow();
+//            jdownloaderDialog.Show();
+
+
         }
 
 
         private void RenameAndMoveJdownloaderVideo()
         {
-            _jdownloaderMoviePath =
-                @"C:\\Jdownloader\\A.History.of.Violence.2005.7_StanleyTweedle2\\A.History.of.Violence.2005.German.720p.BluRay.x264-DETAiLS";
-            _destinationMoviePathName = @"C:\\Jdownloader\\A.History.of.Violence.2005.7_StanleyTweedle2\\A History of Violence 720p";
-            Directory.Move(_jdownloaderMoviePath, _destinationMoviePathName);
-            Directory.Move(_destinationMoviePathName, Properties.Settings.Default.videoPath+"\\"+EscapeDirName(_destinationMoviePathName));
+            
+            var pathString = MoviePath;
+            _jdownloaderMoviePath = MoviePath;
 
+            
+
+            int index = pathString.LastIndexOf("\\", System.StringComparison.Ordinal);
+            if (index > 0)
+                pathString = pathString.Substring(0, index);
+            
+            _destinationFolderName = pathString + "\\" + JdownloaderRenameNameBox + " " + _qualityType;
+            Directory.Move(_jdownloaderMoviePath, _destinationFolderName);
+            Directory.Move(_destinationFolderName, Properties.Settings.Default.videoPath+"\\"+EscapeDirName(_destinationFolderName));
+            
+
+        }
+
+        private void CheckTheQuality(string pathString)
+        {
+            if (pathString.Contains("720"))
+            {
+                _qualityType = "720p";
+                CheckBox720PIsChecked = true;
+            }
+            if (pathString.Contains("1080"))
+            {
+                _qualityType = "1080p";
+                CheckBox1080PIsChecked = true;
+            }
         }
 
         private string EscapeDirName(string moviePath)
