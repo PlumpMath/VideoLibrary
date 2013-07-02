@@ -77,7 +77,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controller\JdownloaderWindowModel.cs" />
+    <Compile Include="Controller\JdownloaderWindowViewModel.cs" />
     <Compile Include="View\JdownloaderViewWindow.xaml.cs">
       <DependentUpon>JdownloaderViewWindow.xaml</DependentUpon>
     </Compile>
@@ -165,7 +165,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\movie.png" />
+    <Resource Include="View\Images\movie.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

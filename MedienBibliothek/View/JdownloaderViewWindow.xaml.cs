@@ -16,9 +16,11 @@ namespace MedienBibliothek.View
 
     public partial class JdownloaderViewWindow : Window
     {
-        public JdownloaderViewWindow(string moviePath)
+        public JdownloaderViewWindow()
         {
             InitializeComponent();
         }
+
+        
     }
 }

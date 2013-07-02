@@ -98,24 +98,6 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private ICommand _jdownloaderListViewDoubleClickCommand;
-       public ICommand JdownloaderListViewDoubleClickCommand
-       {
-           get
-           {
-               if (null == _jdownloaderListViewDoubleClickCommand)
-               {
-                   _jdownloaderListViewDoubleClickCommand = new DelegateCommand(HandleDoubleClickOnJdownloaderItem);
-               }
-               return _jdownloaderListViewDoubleClickCommand;
-           }
-           set
-           {
-               _jdownloaderListViewDoubleClickCommand = value;
-               OnPropertyChanged("JdownloaderListViewDoubleClickCommand");
-           }
-       }
-
        private ICommand _searchBoxChanged;
        public ICommand SearchBoxChanged
        {
@@ -316,13 +298,6 @@ namespace MedienBibliothek.Controller
 
        #endregion Get/Set
        
-
-       private void HandleDoubleClickOnJdownloaderItem()
-       {
-           var jdownloaderDialog = new JdownloaderViewWindow(SelectedJdownloaderFile.ToString());
-           jdownloaderDialog.Show();
-       }
-
        private void HandleDoubleClickOnListItem()
        {
            var startVlc = new Process();
@@ -454,11 +429,7 @@ namespace MedienBibliothek.Controller
            return PlayVideoEnterKey;
        }
 
-       public ICommand GetSelectionChangedEvent()
-       {
-           return JdownloaderListViewDoubleClickCommand;
-       }
-
+      
        public void DragOver(IDropInfo dropInfo)
        {
            if (dropInfo.Data is MainWindowViewModel || dropInfo.Data
@@ -471,9 +442,12 @@ namespace MedienBibliothek.Controller
 
        public void Drop(IDropInfo dropInfo)
        {
-           var video = dropInfo.Data as JdownloaderVideo;
-           var dragVideo = new Video("my test video", "", "", "" );
-           VideoList.Add(dragVideo);
+           if(SelectedJdownloaderFile.JdownloaderVideoPath != null)
+           {
+               var jdownloaderCopyJob = new JdownloaderWindowViewModel();
+               jdownloaderCopyJob.InitializeJdownloaderDialog(SelectedJdownloaderFile.JdownloaderVideoPath);
+//               SelectedJdownloaderFile.JdownloaderVideoPath
+           }
        }
 
        public void StartDrag(IDragInfo dragInfo)
