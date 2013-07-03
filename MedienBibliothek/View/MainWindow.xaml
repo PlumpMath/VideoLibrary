@@ -17,7 +17,7 @@
         <Grid.DataContext>
             <Controller:MainWindowViewModel/>
         </Grid.DataContext>
-        <ListView Name="VideoListView" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragAdornerTemplate="{StaticResource MovieImage}" dd:DragDrop.DropHandler="{Binding }" SelectedValue="{Binding Path=SelectedVideo}" MouseDoubleClick="ListViewDoubleClick" ItemsSource="{Binding Path=VideoList}" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
+        <ListView Name="VideoListView" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding }" SelectedValue="{Binding Path=SelectedVideo}" MouseDoubleClick="ListViewDoubleClick" ItemsSource="{Binding Path=VideoList}" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
             
             <ListView.View>
                 <GridView>
@@ -33,7 +33,7 @@
         </TextBox>
         <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="SettingsClickEvent"/>
         <Button Content="{Binding CreateExcelFileButtonName}" Command="{Binding CreateExcelFileCommand}" HorizontalAlignment="Left" Margin="158,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
-        <ListView Name="JdownloaderListView" dd:DragDrop.IsDropTarget="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" SelectedValue="{Binding Path=SelectedJdownloaderFile}" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="121" Margin="10,288,0,0" VerticalAlignment="Top" Width="754">
+        <ListView Name="JdownloaderListView" dd:DragDrop.DragAdornerTemplate="{StaticResource MovieImage}" dd:DragDrop.IsDropTarget="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" SelectedValue="{Binding Path=SelectedJdownloaderFile}" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="121" Margin="10,288,0,0" VerticalAlignment="Top" Width="754">
 <!--            PreviewMouseLeftButtonDown="SearchAreaGrid_PatientResults_PreviewMouseLeftButtonDown"-->
             <ListView.View >
                 <GridView>

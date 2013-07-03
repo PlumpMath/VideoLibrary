@@ -20,7 +20,7 @@ namespace MedienBibliothek.Controller
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcFilePath);
-       readonly DirectoryInfo _jdownloaderVideoPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
+       private readonly DirectoryInfo _jdownloaderVideoPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
        
        private Collection<Video> _originalVideoList;
 

@@ -150,7 +150,26 @@ namespace MedienBibliothek.Controller
             Directory.Move(_jdownloaderMoviePath, _destinationFolderName);
             Directory.Move(_destinationFolderName, Properties.Settings.Default.videoPath+"\\"+EscapeDirName(_destinationFolderName));
             
+            DeletingEmptyFolders();
+            
 
+        }
+
+        private void DeletingEmptyFolders()
+        {
+            DirectoryInfo jdownloaderPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
+            
+
+            foreach (var directory in Directory.GetDirectories(jdownloaderPath.ToString()))
+            {
+                if (Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
+                {
+                    Directory.Delete(directory, false);
+                }
+                    
+            }
+            
+            
         }
 
         private void CheckTheQuality(string pathString)
