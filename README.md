@@ -7,6 +7,7 @@ The tool just work with correct folder syntax. My mkv files dont have a id3 tag 
 Now with jdownloader folder path so that u can find your jdownloader videos and rename it with drag drop to the video list view.
 
 Folder path for example: C:\Movies\HDMovies
+
 Folder names of the movies: A History of Violence 720p
 
 Features:
