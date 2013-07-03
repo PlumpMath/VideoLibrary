@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
+using MedienBibliothek.Interfaces;
 using MedienBibliothek.Model;
 using MedienBibliothek.View;
 
@@ -13,7 +14,7 @@ using MedienBibliothek.View;
 
 namespace MedienBibliothek.Controller
 {
-    public class JdownloaderWindowViewModel : INotifyPropertyChanged
+    public class JdownloaderDialogViewModel : INotifyPropertyChanged, ICommandHandler
     {
         public static string MoviePath;
         //            MoviePath = moviePath;
@@ -21,7 +22,7 @@ namespace MedienBibliothek.Controller
         private string _jdownloaderMoviePath;
         private string _destinationFolderName;
         
-        public  JdownloaderWindowViewModel(string path)
+        public  JdownloaderDialogViewModel(string path)
         {
             
             RenameAndMoveButton = "Rename and move";
@@ -29,7 +30,7 @@ namespace MedienBibliothek.Controller
             CheckBox1080P = "1080p";
             InitializeJdownloaderDialog(path);
 //            _jdownloaderMoviePath = moviePath;
-//            var jdownloaderDialog = new JdownloaderWindow();
+//            var jdownloaderDialog = new JdownloaderDialog();
 //            jdownloaderDialog.Show();
         }
         
@@ -107,7 +108,28 @@ namespace MedienBibliothek.Controller
             }
         }
 
-        
+        private ICommand _copyVideoEnterKey;
+        public ICommand CopyVideoEnterKey
+        {
+            get
+            {
+                if (null == _copyVideoEnterKey)
+                {
+                    _copyVideoEnterKey = new DelegateCommand(RenameAndMoveJdownloaderVideo);
+                }
+                return _copyVideoEnterKey;
+            }
+            set
+            {
+                _copyVideoEnterKey = value;
+                OnPropertyChanged("CopyVideoEnterKey");
+            }
+        }
+
+        private void CopyVideo()
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion Get/Set
 
@@ -127,7 +149,7 @@ namespace MedienBibliothek.Controller
             CheckTheQuality(moviePath);
             if (_jdownloaderMoviePath == null)
                 _jdownloaderMoviePath = moviePath;
-//            var jdownloaderDialog = new JdownloaderWindow();
+//            var jdownloaderDialog = new JdownloaderDialog();
 //            jdownloaderDialog.Show();
 
 
@@ -190,6 +212,21 @@ namespace MedienBibliothek.Controller
         {
             string[] folderCollection = moviePath.Split('\\');
             return folderCollection.Last();
+        }
+
+        public ICommand GetDoubleClickCommand()
+        {
+            return null;
+        }
+
+        public ICommand GetTextChangedCommand()
+        {
+            return null;
+        }
+
+        public ICommand GetReturnKeyEvent()
+        {
+            return CopyVideoEnterKey;
         }
     }
 }

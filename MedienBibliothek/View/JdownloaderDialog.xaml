@@ -1,12 +1,12 @@
-﻿<Window x:Class="MedienBibliothek.View.JdownloaderWindow"
+﻿<Window x:Class="MedienBibliothek.View.JdownloaderDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controller="clr-namespace:MedienBibliothek.Controller" 
-        Title="JdownloaderWindow" Height="178" Width="392">
+        Title="JdownloaderDialog" Height="178" Width="392">
     <Grid Name="mainGridView">
         
         <Label Content="Name of Video" HorizontalAlignment="Left" Margin="24,20,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Text="{Binding Path=JdownloaderRenameNameBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="140,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
+        <TextBox HorizontalAlignment="Left" KeyDown="PressKeyEventInTextbox" Text="{Binding Path=JdownloaderRenameNameBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="140,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
         <Button Command="{Binding Path=RenameAndMoveCommand}" Click="CloseWindowClick" Content="{Binding Path=RenameAndMoveButton}" HorizontalAlignment="Left" Margin="247,107,0,0" VerticalAlignment="Top" Width="112"/>
         <CheckBox Content="{Binding Path=CheckBox720P}" IsChecked="{Binding Path=CheckBox720PIsChecked, Mode=TwoWay}" HorizontalAlignment="Left" Margin="35,107,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="{Binding Path=CheckBox1080P}" IsChecked="{Binding Path=CheckBox1080PIsChecked, Mode=TwoWay}" HorizontalAlignment="Left" Margin="150,107,0,0" VerticalAlignment="Top"/>

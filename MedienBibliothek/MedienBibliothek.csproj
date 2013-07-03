@@ -77,9 +77,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controller\JdownloaderWindowViewModel.cs" />
-    <Compile Include="View\JdownloaderWindow.xaml.cs">
-      <DependentUpon>JdownloaderWindow.xaml</DependentUpon>
+    <Compile Include="Controller\JdownloaderDialogViewModel.cs" />
+    <Compile Include="View\JdownloaderDialog.xaml.cs">
+      <DependentUpon>JdownloaderDialog.xaml</DependentUpon>
     </Compile>
     <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
@@ -89,7 +89,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Controller\MainWindowViewModel.cs" />
+    <Compile Include="Controller\MainViewModel.cs" />
     <Compile Include="Interfaces\CommandHandler.cs" />
     <Compile Include="Model\DelegateCommand.cs" />
     <Compile Include="Model\JdownloaderVideo.cs" />
@@ -106,7 +106,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\JdownloaderWindow.xaml">
+    <Page Include="View\JdownloaderDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

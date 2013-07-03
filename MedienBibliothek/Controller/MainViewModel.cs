@@ -16,7 +16,7 @@ using MedienBibliothek.View;
 
 namespace MedienBibliothek.Controller
 {
-   public class MainWindowViewModel : INotifyPropertyChanged, ICommandHandler, IDropTarget, IDragSource
+   public class MainViewModel : INotifyPropertyChanged, ICommandHandler, IDropTarget, IDragSource
     {
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcFilePath);
@@ -24,7 +24,7 @@ namespace MedienBibliothek.Controller
        
        private Collection<Video> _originalVideoList;
 
-       public MainWindowViewModel()
+       public MainViewModel()
        {
            RefreshButtonName = "Refresh video list";
            JdownloaderButtonName = "Get jdwonloader videos";
@@ -432,7 +432,7 @@ namespace MedienBibliothek.Controller
       
        public void DragOver(IDropInfo dropInfo)
        {
-           if (dropInfo.Data is MainWindowViewModel || dropInfo.Data
+           if (dropInfo.Data is MainViewModel || dropInfo.Data
            is JdownloaderVideo)
            {
                dropInfo.DropTargetAdorner = DropTargetAdorners.Highlight;
@@ -444,7 +444,7 @@ namespace MedienBibliothek.Controller
        {
            if(SelectedJdownloaderFile.JdownloaderVideoPath != null)
            {
-               var jdownloaderDialog = new JdownloaderWindow(SelectedJdownloaderFile.JdownloaderVideoPath);
+               var jdownloaderDialog = new JdownloaderDialog(SelectedJdownloaderFile.JdownloaderVideoPath);
                jdownloaderDialog.ShowDialog();
                CheckForJdownloaderVideos();
                CheckForNewVideos();
