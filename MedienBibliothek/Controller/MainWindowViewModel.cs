@@ -444,29 +444,12 @@ namespace MedienBibliothek.Controller
        {
            if(SelectedJdownloaderFile.JdownloaderVideoPath != null)
            {
-               //var jdownloaderCopyJob = new JdownloaderWindowViewModel();
-               //jdownloaderCopyJob.InitializeJdownloaderDialog(SelectedJdownloaderFile.JdownloaderVideoPath);
-//               SelectedJdownloaderFile.JdownloaderVideoPath
-
                var jdownloaderDialog = new JdownloaderWindow(SelectedJdownloaderFile.JdownloaderVideoPath);
                jdownloaderDialog.ShowDialog();
-//               jdownloaderDialog.Close();
+               CheckForJdownloaderVideos();
+               CheckForNewVideos();
            }
        }
-
-//       public void CheckTheQuality(string pathString)
-//       {
-//           if (pathString.Contains("720"))
-//           {
-//               //                _qualityType = "720p";
-//               CheckBox720PIsChecked = true;
-//           }
-//           if (pathString.Contains("1080"))
-//           {
-//               _qualityType = "1080p";
-//               CheckBox1080PIsChecked = true;
-//           }
-//       }
 
        public void StartDrag(IDragInfo dragInfo)
        {

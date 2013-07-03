@@ -54,7 +54,7 @@ namespace MedienBibliothek
             {
                 Properties.Settings.Default.vlcFilePath = VlcExecPathBox.Text;
             }
-
+            Properties.Settings.Default.Save();
             Close();
 
         }
