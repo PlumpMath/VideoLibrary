@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MedienBibliothek.View.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        
+        Icon="/movie.ico"
         xmlns:Controller="clr-namespace:MedienBibliothek.Controller"
         xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" Title="MainWindow" Height="500" Width="782">
     <Window.Resources>
@@ -23,6 +23,7 @@
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay}" Header="Video Name"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=Quality, Mode=TwoWay}" Header="Video Quality"/>
+                    
                 </GridView>
             </ListView.View>
         </ListView>
@@ -34,11 +35,9 @@
         <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="SettingsClickEvent"/>
         <Button Content="{Binding CreateExcelFileButtonName}" Command="{Binding CreateExcelFileCommand}" HorizontalAlignment="Left" Margin="158,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
         <ListView Name="JdownloaderListView" dd:DragDrop.DragAdornerTemplate="{StaticResource MovieImage}" dd:DragDrop.IsDropTarget="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" SelectedValue="{Binding Path=SelectedJdownloaderFile}" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="121" Margin="10,288,0,0" VerticalAlignment="Top" Width="754">
-<!--            PreviewMouseLeftButtonDown="SearchAreaGrid_PatientResults_PreviewMouseLeftButtonDown"-->
             <ListView.View >
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Path=JdownloaderVideoPath, Mode=TwoWay}" Header="Video Name"/>
-<!--                    <GridViewColumn/>-->
                 </GridView>
             </ListView.View>
         </ListView>
