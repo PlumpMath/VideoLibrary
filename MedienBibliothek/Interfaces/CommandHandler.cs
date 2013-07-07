@@ -11,6 +11,7 @@ namespace MedienBibliothek.Interfaces
         ICommand GetDoubleClickCommand();
         ICommand GetTextChangedCommand();
         ICommand GetReturnKeyEvent();
+        ICommand GetCheckedVideo();
         
     }
 }

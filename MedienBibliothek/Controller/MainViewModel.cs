@@ -1,17 +1,20 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Input;
 using GongSolutions.Wpf.DragDrop;
 using MedienBibliothek.Interfaces;
 using MedienBibliothek.Model;
 using MedienBibliothek.View;
+using DragDropEffects = System.Windows.DragDropEffects;
+using IDropTarget = GongSolutions.Wpf.DragDrop.IDropTarget;
 
 
 namespace MedienBibliothek.Controller
@@ -21,6 +24,8 @@ namespace MedienBibliothek.Controller
        readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
        readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcFilePath);
        private readonly DirectoryInfo _jdownloaderVideoPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
+//       private readonly FolderBrowserDialog _browseVideoPath = new FolderBrowserDialog();
+       
        
        private Collection<Video> _originalVideoList;
 
@@ -66,6 +71,20 @@ namespace MedienBibliothek.Controller
            }
        }
 
+       private IList _selectedVideos;
+       public IList SelectedVideos
+       {
+           get
+           {
+               return _selectedVideos;
+           }
+           set
+           {
+               _selectedVideos = value;
+               OnPropertyChanged("SelectedVideos");
+           }
+       }
+
        private JdownloaderVideo _selectedJdownloaderFile;
        public JdownloaderVideo SelectedJdownloaderFile
        {
@@ -77,6 +96,20 @@ namespace MedienBibliothek.Controller
            {
                _selectedJdownloaderFile = value;
                OnPropertyChanged("SelectedJdownloaderFile");
+           }
+       }
+
+       private Video _checkedVideo;
+       public Video CheckedVideo
+       {
+           get
+           {
+               return _checkedVideo;
+           }
+           set
+           {
+               _checkedVideo = value;
+               OnPropertyChanged("CheckedVideo");
            }
        }
 
@@ -134,8 +167,23 @@ namespace MedienBibliothek.Controller
            }
        }
 
-
-
+//       private ICommand _collectiCheckedVideos;
+//       public ICommand CollectCheckedVideo
+//       {
+//           get
+//           {
+//               if (null == _collectiCheckedVideos)
+//               {
+//                   _collectiCheckedVideos = new DelegateCommand(CollectSelectedVideo);
+//               }
+//               return _collectiCheckedVideos;
+//           }
+//           set
+//           {
+//               _collectiCheckedVideos = value;
+//               OnPropertyChanged("CollectCheckedVideo");
+//           }
+//       }
 
        private string _searchBoxContext;
        public string SearchBoxContext
@@ -283,6 +331,34 @@ namespace MedienBibliothek.Controller
            }
        }
 
+       private DelegateCommand _copyMoviesToUsbDrive;
+       public ICommand CopyMoviesToUsbDrive
+       {
+           get
+           {
+               if (_copyMoviesToUsbDrive == null)
+               {
+                   _copyMoviesToUsbDrive = new DelegateCommand(CopyMoviesToUSBDrive);
+               }
+               return _copyMoviesToUsbDrive;
+           }
+       }
+
+      
+
+       private DelegateCommand _renameMovie;
+       public ICommand RenameMovie
+       {
+           get
+           {
+               if (_renameMovie == null)
+               {
+                   _renameMovie = new DelegateCommand(CheckForJdownloaderVideos);
+               }
+               return _renameMovie;
+           }
+       }
+
        private DelegateCommand _createExcelFileCommand;
        public ICommand CreateExcelFileCommand
        {
@@ -306,7 +382,33 @@ namespace MedienBibliothek.Controller
            startVlc.Start();
        }
 
+       private void CopyMoviesToUSBDrive()
+       {
+           var videoListToCopy = new List<string>();
+           var test = SelectedVideos;
+           var title = SelectedVideos[0];
+           var test2 = title;
+//           SelectedVideos.
+//           foreach (var selectedVideo in SelectedVideos)
+//           {
+//               File.Copy(SelectedVideos);
+//           }
 
+//           videoListToCopy.Add(SelectedVideo.FullPath);
+       }
+
+//       private void CopyMoviesToUSBDrive()
+//       {
+//           var usbDriveChooseDialog = new FolderBrowserDialog();
+//           usbDriveChooseDialog.ShowDialog();
+//           var usbDrivePath = usbDriveChooseDialog.SelectedPath;
+//           foreach (var video in VideoList)
+//           {
+//               
+//           }
+//           
+//
+//       }
        
 
        public event PropertyChangedEventHandler PropertyChanged;
@@ -429,7 +531,13 @@ namespace MedienBibliothek.Controller
            return PlayVideoEnterKey;
        }
 
-      
+       public ICommand GetCheckedVideo()
+       {
+//           return CollectCheckedVideo;
+           return null;
+       }
+
+
        public void DragOver(IDropInfo dropInfo)
        {
            if (dropInfo.Data is MainViewModel || dropInfo.Data

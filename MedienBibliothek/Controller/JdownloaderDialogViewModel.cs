@@ -228,5 +228,10 @@ namespace MedienBibliothek.Controller
         {
             return CopyVideoEnterKey;
         }
+
+        public ICommand GetCheckedVideo()
+        {
+            return null;
+        }
     }
 }

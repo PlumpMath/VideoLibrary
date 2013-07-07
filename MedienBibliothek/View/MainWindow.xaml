@@ -9,24 +9,53 @@
             <StackPanel>
                 <Image Source="Images\movie.png" Width="64" 
                    HorizontalAlignment="Center"/>
-                
+
             </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ListViewItemWithCheckbox">
+            <DockPanel>
+
+                <CheckBox Margin="0,0,10,0" IsChecked="{Binding Path=IsSelected, 
+      RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" IsThreeState="False"/>
+<!--                -->
+<!--                IsChecked="{Binding CheckedVideo}"-->
+
+                <TextBlock Text="{Binding Path=Name, Mode=TwoWay}"/>
+
+
+                <TextBlock Text="{Binding Path=Quality, Mode=TwoWay}"/>
+            </DockPanel>
+
         </DataTemplate>
     </Window.Resources>
     <Grid Name="mainGridView">
         <Grid.DataContext>
             <Controller:MainViewModel/>
         </Grid.DataContext>
-        <ListView Name="VideoListView" dd:DragDrop.IsDropTarget="True" dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding }" SelectedValue="{Binding Path=SelectedVideo}" MouseDoubleClick="ListViewDoubleClick" ItemsSource="{Binding Path=VideoList}" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
-            
+        <ListView Name="VideoListView"  dd:DragDrop.IsDropTarget="True" 
+                  dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding }" 
+                  SelectedValue="{Binding Path=SelectedVideo}" 
+                  MouseDoubleClick="ListViewDoubleClick" 
+                  SelectionChanged="ItemSelectionChanged"
+                  SelectionMode="Multiple"
+                  ItemsSource="{Binding Path=VideoList}" 
+                  HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay}" Header="Video Name"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Quality, Mode=TwoWay}" Header="Video Quality"/>
-                    
+                <GridViewColumn CellTemplate="{StaticResource ListViewItemWithCheckbox}"/>
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <!--                <ListView.View>-->
+        <!--                <GridView>-->
+        <!--                    -->
+        <!--                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name, Mode=TwoWay}" Header="Video Name"/>-->
+        <!--                    <GridViewColumn DisplayMemberBinding="{Binding Path=Quality, Mode=TwoWay}" Header="Video Quality"/>-->
+        <!--                    -->
+        <!--                </GridView>-->
+        <!--            </ListView.View>-->
+        <!--        </ListView>-->
         <Button Content="{Binding Path=RefreshButtonName}" Command="{Binding Path=RefreshVideoListCommand}" HorizontalAlignment="Left" Margin="10,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
         <Button Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Left" Margin="685,10,0,0" VerticalAlignment="Top" Width="79" Height="23.96"/>
         <TextBox Text="{Binding Path=SearchBoxContext, UpdateSourceTrigger=PropertyChanged}" KeyDown="PressKeyEventInTextbox" TextChanged="SearchBoxContextChanged" HorizontalAlignment="Left" Height="23.96" Margin="478.25,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193.559" >
@@ -42,6 +71,8 @@
             </ListView.View>
         </ListView>
         <Button Content="{Binding JdownloaderButtonName}" Command="{Binding RefreshJdownloaderVideoListCommand}" HorizontalAlignment="Left" Margin="332,435.04,0,0" VerticalAlignment="Top" Width="133" Height="23.96"/>
+        <Button Content="Copy to USB drive" Command="{Binding CopyMoviesToUsbDrive}" HorizontalAlignment="Left" Margin="478,58,0,0" VerticalAlignment="Top" Width="108"/>
+        <Button Content="Rename movie" Command="{Binding RenameMovie}" HorizontalAlignment="Left" Margin="656,58,0,0" VerticalAlignment="Top" Width="108" Height="20"/>
 
 
 
