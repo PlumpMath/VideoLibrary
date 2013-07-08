@@ -384,32 +384,26 @@ namespace MedienBibliothek.Controller
 
        private void CopyMoviesToUSBDrive()
        {
-           var videoListToCopy = new List<string>();
-           var test = SelectedVideos;
-           var title = SelectedVideos[0];
-           var test2 = title;
-//           SelectedVideos.
-//           foreach (var selectedVideo in SelectedVideos)
-//           {
-//               File.Copy(SelectedVideos);
-//           }
+           var usbDriveChooseDialog = new FolderBrowserDialog();
+           usbDriveChooseDialog.ShowDialog();
+           var usbDrivePath = usbDriveChooseDialog.SelectedPath;
+           foreach (var singleVideo in SelectedVideos)
+           {
+               var video = singleVideo as Video;
+               if(video == null)
+               {
+                   return;
+               } else
+               {
+                   File.Copy(video.Path, usbDrivePath);
+               }
+               
 
-//           videoListToCopy.Add(SelectedVideo.FullPath);
+           }
+
        }
 
-//       private void CopyMoviesToUSBDrive()
-//       {
-//           var usbDriveChooseDialog = new FolderBrowserDialog();
-//           usbDriveChooseDialog.ShowDialog();
-//           var usbDrivePath = usbDriveChooseDialog.SelectedPath;
-//           foreach (var video in VideoList)
-//           {
-//               
-//           }
-//           
-//
-//       }
-       
+
 
        public event PropertyChangedEventHandler PropertyChanged;
 
