@@ -66,7 +66,10 @@ namespace MedienBibliothek.Controller
            }
            set
            {
-               _selectedVideo = value;
+               if(value != null)
+               {
+                   _selectedVideo = value;
+               }
                OnPropertyChanged("SelectedVideo");
            }
        }
