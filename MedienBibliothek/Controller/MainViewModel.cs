@@ -395,7 +395,7 @@ namespace MedienBibliothek.Controller
                    return;
                } else
                {
-                   File.Copy(video.Path, usbDrivePath);
+                    CopySelectedMovies(video.Path, usbDrivePath, video.Name, video.Quality);
                }
                
 
@@ -403,7 +403,19 @@ namespace MedienBibliothek.Controller
 
        }
 
+       public static void CopySelectedMovies(string sourceDir, string destinationDir, string videoname, string videoquality)
+       {
+           var realDestinationPath = destinationDir + "\\" + videoname + videoquality;
+           foreach (string dir in Directory.GetDirectories(sourceDir, "*", SearchOption.AllDirectories))
+           {
+               Directory.CreateDirectory(realDestinationPath + dir.Substring(sourceDir.Length));
+           }
 
+           foreach (string fileName in Directory.GetFiles(sourceDir, "*.*", SearchOption.AllDirectories))
+           {
+               File.Copy(fileName, realDestinationPath + fileName.Substring(sourceDir.Length));
+           }
+       }
 
        public event PropertyChangedEventHandler PropertyChanged;
 
