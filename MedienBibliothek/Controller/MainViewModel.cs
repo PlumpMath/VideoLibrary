@@ -451,7 +451,7 @@ namespace MedienBibliothek.Controller
            }
            
            VideoList = filteredList;
-      
+           
        }
 
        private void PlayFirstVideoInListView()
@@ -470,7 +470,13 @@ namespace MedienBibliothek.Controller
 
         private void CheckForNewVideos()
         {
-            InitialiseVideoList();
+            
+            if(SearchBoxContext !=null)
+            {
+                InitialiseVideoList();
+                SearchBoxContext = "";
+            }
+            
         }
 
         private void CheckForJdownloaderVideos()
