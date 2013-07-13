@@ -10,10 +10,10 @@ namespace MedienBibliothek.View
     {
         public JdownloaderDialog(string path)
         {
-      
             InitializeComponent();
             DataContext = new JdownloaderDialogViewModel(path);
-
+            SearchTextBox.Focusable = true;
+            SearchTextBox.Focus();
         }
 
         private void PressKeyEventInTextbox(object sender, KeyEventArgs e)

@@ -16,6 +16,7 @@ namespace MedienBibliothek.Controller
 {
     public class JdownloaderDialogViewModel : INotifyPropertyChanged, ICommandHandler
     {
+        readonly DirectoryInfo _jdownloaderPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
         public static string MoviePath;
         //            MoviePath = moviePath;
         private string _qualityType;
@@ -172,18 +173,19 @@ namespace MedienBibliothek.Controller
             Directory.Move(_jdownloaderMoviePath, _destinationFolderName);
             Directory.Move(_destinationFolderName, Properties.Settings.Default.videoPath+"\\"+EscapeDirName(_destinationFolderName));
             
-            DeletingEmptyFolders();
+            DeletingEmptyFolders(_jdownloaderPath.ToString());
             
 
         }
 
-        private void DeletingEmptyFolders()
+        private void DeletingEmptyFolders(string startPath)
         {
-            DirectoryInfo jdownloaderPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
+            
             
 
-            foreach (var directory in Directory.GetDirectories(jdownloaderPath.ToString()))
+            foreach (var directory in Directory.GetDirectories(startPath))
             {
+                DeletingEmptyFolders(directory);
                 if (Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
                 {
                     Directory.Delete(directory, false);
