@@ -184,9 +184,9 @@ namespace MedienBibliothek.Controller
 
             foreach (var directory in Directory.GetDirectories(jdownloaderPath.ToString()))
             {
-                if (Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
+                if (Directory.GetFiles(directory).Length == 0)
                 {
-                    Directory.Delete(directory, false);
+                    Directory.Delete(directory, true);
                 }
                     
             }
