@@ -21,9 +21,9 @@ namespace MedienBibliothek.Controller
 {
    public class MainViewModel : INotifyPropertyChanged, ICommandHandler, IDropTarget, IDragSource
     {
-       readonly DirectoryInfo _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
-       readonly DirectoryInfo _vlcPath = new DirectoryInfo(@Properties.Settings.Default.vlcFilePath);
-       private readonly DirectoryInfo _jdownloaderVideoPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
+
+       
+       
 //       private readonly FolderBrowserDialog _browseVideoPath = new FolderBrowserDialog();
        
        
@@ -468,7 +468,7 @@ namespace MedienBibliothek.Controller
 
       
 
-        private void CheckForNewVideos()
+        public void CheckForNewVideos()
         {
             
             if(SearchBoxContext !=null)
@@ -482,6 +482,7 @@ namespace MedienBibliothek.Controller
         private void CheckForJdownloaderVideos()
         {
             JdownloaderVideoList = new ObservableCollection<JdownloaderVideo>();
+            var _jdownloaderVideoPath = new DirectoryInfo(@Properties.Settings.Default.jdownloaderVideoPath);
             if(_jdownloaderVideoPath.Exists)
             {
                 FileInfo[] videoFiles = _jdownloaderVideoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
@@ -499,6 +500,7 @@ namespace MedienBibliothek.Controller
        public void InitialiseVideoList()
        {
            VideoList = new ObservableCollection<Video>();
+           var _videoPath = new DirectoryInfo(@Properties.Settings.Default.videoPath);
            if (_videoPath.Exists)
            {
                FileInfo[] videoFiles = _videoPath.GetFiles("*.mkv", SearchOption.AllDirectories);
@@ -551,7 +553,6 @@ namespace MedienBibliothek.Controller
 //           return CollectCheckedVideo;
            return null;
        }
-
 
        public void DragOver(IDropInfo dropInfo)
        {

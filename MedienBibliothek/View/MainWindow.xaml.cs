@@ -30,7 +30,8 @@ namespace MedienBibliothek.View
         private void SettingsClickEvent(object sender, RoutedEventArgs e)
         {
             var settings = new Settings();
-            settings.Show();
+            settings.ShowDialog();
+            
         }
 
 
@@ -43,7 +44,7 @@ namespace MedienBibliothek.View
         {
             if(e.Key == Key.Return)
             {
-                ((ICommandHandler) mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
+                ((ICommandHandler)mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
             }
         }
 
