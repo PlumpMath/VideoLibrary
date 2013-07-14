@@ -83,8 +83,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controller\JdownloaderDialogViewModel.cs" />
+    <Compile Include="Controller\RenameDialogViewModel.cs" />
     <Compile Include="View\JdownloaderDialog.xaml.cs">
       <DependentUpon>JdownloaderDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RenameDialog.xaml.cs">
+      <DependentUpon>RenameDialog.xaml</DependentUpon>
     </Compile>
     <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
@@ -112,6 +116,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\JdownloaderDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RenameDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

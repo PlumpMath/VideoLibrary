@@ -25,14 +25,10 @@ namespace MedienBibliothek.Controller
         
         public  JdownloaderDialogViewModel(string path)
         {
-            
             RenameAndMoveButton = "Rename and move";
             CheckBox720P = "720p";
             CheckBox1080P = "1080p";
             InitializeJdownloaderDialog(path);
-//            _jdownloaderMoviePath = moviePath;
-//            var jdownloaderDialog = new JdownloaderDialog();
-//            jdownloaderDialog.Show();
         }
         
         #region Get/Set
@@ -150,10 +146,6 @@ namespace MedienBibliothek.Controller
             CheckTheQuality(moviePath);
             if (_jdownloaderMoviePath == null)
                 _jdownloaderMoviePath = moviePath;
-//            var jdownloaderDialog = new JdownloaderDialog();
-//            jdownloaderDialog.Show();
-
-
         }
 
 

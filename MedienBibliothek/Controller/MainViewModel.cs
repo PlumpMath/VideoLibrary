@@ -356,11 +356,13 @@ namespace MedienBibliothek.Controller
            {
                if (_renameMovie == null)
                {
-                   _renameMovie = new DelegateCommand(CheckForJdownloaderVideos);
+                   _renameMovie = new DelegateCommand(RenameVideoInList);
                }
                return _renameMovie;
            }
        }
+
+
 
        private DelegateCommand _createExcelFileCommand;
        public ICommand CreateExcelFileCommand
@@ -376,7 +378,19 @@ namespace MedienBibliothek.Controller
        }
 
        #endregion Get/Set
-       
+
+       private void RenameVideoInList()
+       {
+           if(SelectedVideo.Path != null)
+           {
+               var renameVideoDialog = new RenameDialog(SelectedVideo.Path);
+               renameVideoDialog.ShowDialog();
+               CheckForJdownloaderVideos();
+               CheckForNewVideos();
+           }
+           
+       }
+
        private void HandleDoubleClickOnListItem()
        {
            var startVlc = new Process();
