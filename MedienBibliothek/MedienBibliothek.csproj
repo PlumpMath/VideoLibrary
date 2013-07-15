@@ -181,9 +181,6 @@
     <Resource Include="View\Images\movie.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="View\movie.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="movie.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

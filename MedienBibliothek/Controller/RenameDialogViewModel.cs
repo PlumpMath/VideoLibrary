@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using MedienBibliothek.Interfaces;
+using MedienBibliothek.Model;
 
 namespace MedienBibliothek.Controller
 {
@@ -13,6 +14,7 @@ namespace MedienBibliothek.Controller
     {
         private string _qualityType;
         private string _renamedPath;
+        private readonly string _oldVideoPath;
 
         #region Get/Set
 
@@ -73,20 +75,65 @@ namespace MedienBibliothek.Controller
             }
         }
 
+        private DelegateCommand _renameCommand;
+        public ICommand RenameCommand
+        {
+            get
+            {
+                if (_renameCommand == null)
+                {
+                    _renameCommand = new DelegateCommand(RenameVideo);
+                }
+                return _renameCommand;
+            }
+        }
+
+        private ICommand _copyVideoEnterKey;
+        public ICommand CopyVideoEnterKey
+        {
+            get
+            {
+                if (null == _copyVideoEnterKey)
+                {
+                    _copyVideoEnterKey = new DelegateCommand(RenameVideo);
+                }
+                return _copyVideoEnterKey;
+            }
+            set
+            {
+                _copyVideoEnterKey = value;
+                OnPropertyChanged("CopyVideoEnterKey");
+            }
+        }
 
         #endregion Get/Set
 
         public RenameDialogViewModel(string path)
         {
-            InitializeRenameDialog(path);
-            
+            _oldVideoPath = path;
+            CheckTheQuality(_oldVideoPath);
         }
 
-        private void InitializeRenameDialog(string path)
+        private void CheckTheQuality(string pathString)
         {
-            
-            _renamedPath = path + "\\" + RenameNameBox + " " + _qualityType;
-            var oldPath = new DirectoryInfo(path).ToString();
+            if (pathString.Contains("720"))
+            {
+                _qualityType = "720p";
+                CheckBox720PIsChecked = true;
+            }
+            if (pathString.Contains("1080"))
+            {
+                _qualityType = "1080p";
+                CheckBox1080PIsChecked = true;
+            }
+        }
+
+        private void RenameVideo()
+        {
+
+//            _renamedPath = _oldVideoPath + "\\" + RenameNameBox + " " + _qualityType;
+            _renamedPath = Properties.Settings.Default.videoPath + "\\" + RenameNameBox + " " + _qualityType;
+            var oldPath = new DirectoryInfo(_oldVideoPath).ToString();
             Directory.Move(oldPath, _renamedPath);
         }
 
@@ -110,7 +157,7 @@ namespace MedienBibliothek.Controller
 
         public ICommand GetReturnKeyEvent()
         {
-            return null;
+            return CopyVideoEnterKey;
         }
 
         public ICommand GetCheckedVideo()

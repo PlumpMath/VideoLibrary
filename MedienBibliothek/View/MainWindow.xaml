@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Icon="/movie.ico"
         xmlns:Controller="clr-namespace:MedienBibliothek.Controller"
-        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" Title="MainWindow" Height="500" Width="782">
+        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" Title="Video Library" Height="500" Width="782">
     <Window.Resources>
         <DataTemplate x:Key="MovieImage">
             <StackPanel>

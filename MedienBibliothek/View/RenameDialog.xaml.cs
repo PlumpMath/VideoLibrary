@@ -25,20 +25,20 @@ namespace MedienBibliothek.View
             RenameTextBox.Focus();
         }
 
-//        private void PressKeyEventInTextbox(object sender, KeyEventArgs e)
-//        {
-//            if (e.Key == Key.Return)
-//            {
-//                ((ICommandHandler)mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
-//                Close();
-//            }
-//            
-//        }
-//
-//        private void CloseWindowClick(object sender, RoutedEventArgs e)
-//        {
-//            Close();
-//        }
+        private void PressKeyEventInTextbox(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                ((ICommandHandler)mainGridView.DataContext).GetReturnKeyEvent().Execute(e);
+                Close();
+            }
+            
+        }
+
+        private void CloseWindowClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
 

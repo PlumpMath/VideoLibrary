@@ -6,10 +6,10 @@
     <Grid Name="mainGridView">
 
         <Label Content="Name of Video" HorizontalAlignment="Left" Margin="24,20,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="RenameTextBox" HorizontalAlignment="Left" Text="{Binding Path=RenameNameBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="140,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
-<!--        KeyDown="PressKeyEventInTextbox"-->
-        <Button Command="{Binding Path=RenameAndMoveCommand}" Content="Rename" HorizontalAlignment="Left" Margin="247,107,0,0" VerticalAlignment="Top" Width="112"/>
-<!--        Click="CloseWindowClick"-->
+        <TextBox Name="RenameTextBox" KeyDown="PressKeyEventInTextbox" HorizontalAlignment="Left" Text="{Binding Path=RenameNameBox, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Height="23" Margin="140,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219"/>
+<!--        -->
+        <Button Command="{Binding Path=RenameCommand}" Click="CloseWindowClick" Content="Rename" HorizontalAlignment="Left" Margin="247,107,0,0" VerticalAlignment="Top" Width="112"/>
+<!--        -->
         <CheckBox Content="720p" IsChecked="{Binding Path=CheckBox720PIsChecked, Mode=TwoWay}" HorizontalAlignment="Left" Margin="35,107,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="1080p" IsChecked="{Binding Path=CheckBox1080PIsChecked, Mode=TwoWay}" HorizontalAlignment="Left" Margin="150,107,0,0" VerticalAlignment="Top"/>
 

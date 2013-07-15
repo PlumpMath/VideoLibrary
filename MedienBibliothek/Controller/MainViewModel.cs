@@ -295,7 +295,7 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private DelegateCommand _searchVideoListCommand;
+       private ICommand _searchVideoListCommand;
        public ICommand SearchVideoListCommand
        {
            get
@@ -308,7 +308,7 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private DelegateCommand _refreshVideoListCommand;
+       private ICommand _refreshVideoListCommand;
        public ICommand RefreshVideoListCommand
        {
            get
@@ -321,7 +321,7 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private DelegateCommand _refreshJdownloaderVideoListCommand;
+       private ICommand _refreshJdownloaderVideoListCommand;
        public ICommand RefreshJdownloaderVideoListCommand
        {
            get
@@ -334,7 +334,7 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private DelegateCommand _copyMoviesToUsbDrive;
+       private ICommand _copyMoviesToUsbDrive;
        public ICommand CopyMoviesToUsbDrive
        {
            get
@@ -349,7 +349,7 @@ namespace MedienBibliothek.Controller
 
       
 
-       private DelegateCommand _renameMovie;
+       private ICommand _renameMovie;
        public ICommand RenameMovie
        {
            get
@@ -386,7 +386,7 @@ namespace MedienBibliothek.Controller
                var renameVideoDialog = new RenameDialog(SelectedVideo.Path);
                renameVideoDialog.ShowDialog();
                CheckForJdownloaderVideos();
-               CheckForNewVideos();
+               InitialiseVideoList();
            }
            
        }
@@ -485,7 +485,7 @@ namespace MedienBibliothek.Controller
         public void CheckForNewVideos()
         {
             
-            if(SearchBoxContext !=null)
+            if(SearchBoxContext != "")
             {
                 InitialiseVideoList();
                 SearchBoxContext = "";
