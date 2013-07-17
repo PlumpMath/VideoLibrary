@@ -485,7 +485,7 @@ namespace MedienBibliothek.Controller
         public void CheckForNewVideos()
         {
             
-            if(SearchBoxContext != "")
+            if(SearchBoxContext != "" || SearchBoxContext != null)
             {
                 InitialiseVideoList();
                 SearchBoxContext = "";
