@@ -63,6 +63,7 @@
         <Button Content="{Binding JdownloaderButtonName}" Command="{Binding RefreshJdownloaderVideoListCommand}" HorizontalAlignment="Left" Margin="332,435.04,0,0" VerticalAlignment="Top" Width="133" Height="23.96"/>
         <Button Content="Copy to USB drive" Command="{Binding CopyMoviesToUsbDrive}" HorizontalAlignment="Left" Margin="478,58,0,0" VerticalAlignment="Top" Width="108"/>
         <Button Content="Rename movie" Command="{Binding RenameMovie}" HorizontalAlignment="Left" Margin="656,58,0,0" VerticalAlignment="Top" Width="108" Height="20"/>
+        <Image Source="{Binding Path=ImageSourceUrl}" HorizontalAlignment="Left" Height="155" Margin="478,95,0,0" VerticalAlignment="Top" Width="108"/>
 
 
 

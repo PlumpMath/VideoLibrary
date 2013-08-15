@@ -36,6 +36,7 @@ namespace MedienBibliothek.Controller
            JdownloaderButtonName = "Get jdwonloader videos";
            CreateExcelFileButtonName = "Create excel file";
            SearchButtonName = "Search";
+           ImageSourceUrl = "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg";
            InitialiseVideoList();
            
        }
@@ -52,6 +53,20 @@ namespace MedienBibliothek.Controller
                    _testMovieDbRequest = new DelegateCommand(GetMovieInformationFromDatabase);
                }
                return _testMovieDbRequest;
+           }
+       }
+
+       private string _imageSourceUrl;
+       public string ImageSourceUrl
+       {
+           get
+           {
+               return _imageSourceUrl;
+           }
+           set
+           {
+               _imageSourceUrl = value;
+               OnPropertyChanged("ImageSourceUrl");
            }
        }
 
