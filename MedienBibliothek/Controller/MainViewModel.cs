@@ -36,25 +36,12 @@ namespace MedienBibliothek.Controller
            JdownloaderButtonName = "Get jdwonloader videos";
            CreateExcelFileButtonName = "Create excel file";
            SearchButtonName = "Search";
-           ImageSourceUrl = "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg";
+           ImageSourceUrl = "";
            InitialiseVideoList();
            
        }
 
        #region Get/Set
-
-       private ICommand _testMovieDbRequest;
-       public ICommand TestMovieDbRequest
-       {
-           get
-           {
-               if (_testMovieDbRequest == null)
-               {
-                   _testMovieDbRequest = new DelegateCommand(GetMovieInformationFromDatabase);
-               }
-               return _testMovieDbRequest;
-           }
-       }
 
        private string _imageSourceUrl;
        public string ImageSourceUrl
@@ -96,6 +83,7 @@ namespace MedienBibliothek.Controller
                if(value != null)
                {
                    _selectedVideo = value;
+                   GetMovieImageUrl(_selectedVideo.Name);
                }
                OnPropertyChanged("SelectedVideo");
            }
@@ -388,13 +376,14 @@ namespace MedienBibliothek.Controller
 
        #endregion Get/Set
 
-       private void GetMovieInformationFromDatabase()
+       private void GetMovieImageUrl(string movieName)
        {
            var baseUrl = "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185";
            var client = new TMDbClient("9c51453ba783de3ed91ec927fe4b1ad3");
-           SearchContainer<SearchMovie> results = client.SearchMovie("Transformers");
+           SearchContainer<SearchMovie> results = client.SearchMovie(movieName);
            var backPathOfPoster = results.Results[0].PosterPath;
-           var movieImagePath = baseUrl + backPathOfPoster;
+           
+           ImageSourceUrl = baseUrl + backPathOfPoster;
            
            //https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185 + path
        }
