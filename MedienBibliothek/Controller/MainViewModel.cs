@@ -455,9 +455,9 @@ namespace MedienBibliothek.Controller
            {
                GetMovieInformations(_selectedVideo.Name);
            }
-           catch (Exception)
+           catch (Exception error)
            {
-               return;
+               MessageBox.Show(error.ToString());
            }
        }
 
@@ -691,10 +691,16 @@ namespace MedienBibliothek.Controller
 
        public void StartDrag(IDragInfo dragInfo)
        {
-           var selectedVideo = (JdownloaderVideo)dragInfo.SourceItem;
-           dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
-           dragInfo.Data = selectedVideo;
-          
+           try
+           {
+               var selectedVideo = (JdownloaderVideo)dragInfo.SourceItem;
+               dragInfo.Effects = DragDropEffects.Copy | DragDropEffects.Move;
+               dragInfo.Data = selectedVideo;
+           }
+           catch (Exception error)
+           {
+               MessageBox.Show(error.ToString());
+           }
        }
 
        public void Dropped(IDropInfo dropInfo)
