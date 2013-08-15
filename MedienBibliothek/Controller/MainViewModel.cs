@@ -375,26 +375,13 @@ namespace MedienBibliothek.Controller
 
        private void GetMovieInformationFromDatabase()
        {
+           var baseUrl = "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185";
            var client = new TMDbClient("9c51453ba783de3ed91ec927fe4b1ad3");
            SearchContainer<SearchMovie> results = client.SearchMovie("Transformers");
-           foreach (SearchMovie result in results.Results)
-           {
-               MessageBox.Show(result.Title);
-           }
-
-//           var request = System.Net.WebRequest.Create("http://api.themoviedb.org/3/search/movie?query=transformers-2&api_key=9c51453ba783de3ed91ec927fe4b1ad3") as System.Net.HttpWebRequest;
-//           request.Method = "GET";
-//           request.Headers.Add(HttpRequestHeader.Accept, "application/json");
-//           request.ContentLength = 0;
-//           string responseContent;
-//           using (var response = request.GetResponse() as System.Net.HttpWebResponse)
-//           {
-//               using (var reader = new System.IO.StreamReader(response.GetResponseStream()))
-//               {
-//                   responseContent = reader.ReadToEnd();
-//               }
-//           }
-           //http://api.themoviedb.org/3/search/movie?query=transformers-2&api_key=9c51453ba783de3ed91ec927fe4b1ad3
+           var backPathOfPoster = results.Results[0].PosterPath;
+           var movieImagePath = baseUrl + backPathOfPoster;
+           
+           //https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185 + path
        }
 
        private void RenameVideoInList()
