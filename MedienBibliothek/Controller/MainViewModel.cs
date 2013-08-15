@@ -451,12 +451,19 @@ namespace MedienBibliothek.Controller
 
        private void RefreshMovieInformation()
        {
-           GetMovieInformations(_selectedVideo.Name);
+           try
+           {
+               GetMovieInformations(_selectedVideo.Name);
+           }
+           catch (Exception)
+           {
+               throw;
+           }
        }
 
        private void GetMovieInformations(string movieName)
        {
-           var baseUrl = "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185";
+           const string baseUrl = @"https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185";
            var client = new TMDbClient("9c51453ba783de3ed91ec927fe4b1ad3");
            SearchContainer<SearchMovie> results = client.SearchMovie(movieName);
            var backPathOfPoster = results.Results[0].PosterPath;
