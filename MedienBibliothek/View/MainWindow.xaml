@@ -65,7 +65,7 @@
         <Label Content="{Binding Path=MovieTitle}" HorizontalAlignment="Left" Margin="620,110,0,0" VerticalAlignment="Top" Height="30" Width="124"/>
         <Label Content="{Binding Path=MovieReleaseDate}" HorizontalAlignment="Left" Margin="620,150,0,0" VerticalAlignment="Top" Height="30" Width="124"/>
         <Label Content="{Binding Path=MovieVoteAverage}" HorizontalAlignment="Left" Margin="620,190,0,0" VerticalAlignment="Top" Height="30" Width="124"/>
-        <Label Content="/ 10" HorizontalAlignment="Left" Margin="640,190,0,0" VerticalAlignment="Top" Height="30" Width="39"/>
+        <Label Content="{Binding Path=MovieMaxRating}" HorizontalAlignment="Left" Margin="640,190,0,0" VerticalAlignment="Top" Height="30" Width="39"/>
 
 
 

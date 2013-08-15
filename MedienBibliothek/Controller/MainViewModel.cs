@@ -71,8 +71,8 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private string _movieReleaseDate;
-       public string MovieReleaseDate
+       private DateTime? _movieReleaseDate;
+       public DateTime? MovieReleaseDate
        {
            get
            {
@@ -85,17 +85,17 @@ namespace MedienBibliothek.Controller
            }
        }
 
-       private string _moviePopularity;
-       public string MoviePopularity
+       private string _movieMaxRating;
+       public string MovieMaxRating
        {
            get
            {
-               return _moviePopularity;
+               return _movieMaxRating;
            }
            set
            {
-               _moviePopularity = value;
-               OnPropertyChanged("MoviePopularity");
+               _movieMaxRating = value;
+               OnPropertyChanged("MovieMaxRating");
            }
        }
 
@@ -462,8 +462,8 @@ namespace MedienBibliothek.Controller
            var backPathOfPoster = results.Results[0].PosterPath;
            ImageSourceUrl = baseUrl + backPathOfPoster;
            MovieTitle = results.Results[0].Title;
-           MovieReleaseDate = results.Results[0].ReleaseDate.ToString();
-           MoviePopularity = results.Results[0].Popularity.ToString();
+           MovieReleaseDate = results.Results[0].ReleaseDate;
+           MovieMaxRating = "/ 10";
            MovieVoteAverage = results.Results[0].VoteAverage.ToString();
        }
 
