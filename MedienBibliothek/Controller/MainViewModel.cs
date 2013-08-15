@@ -57,6 +57,62 @@ namespace MedienBibliothek.Controller
            }
        }
 
+       private string _movieTitle;
+       public string MovieTitle
+       {
+           get
+           {
+               return _movieTitle;
+           }
+           set
+           {
+               _movieTitle = value;
+               OnPropertyChanged("MovieTitle");
+           }
+       }
+
+       private string _movieReleaseDate;
+       public string MovieReleaseDate
+       {
+           get
+           {
+               return _movieReleaseDate;
+           }
+           set
+           {
+               _movieReleaseDate = value;
+               OnPropertyChanged("MovieReleaseDate");
+           }
+       }
+
+       private string _moviePopularity;
+       public string MoviePopularity
+       {
+           get
+           {
+               return _moviePopularity;
+           }
+           set
+           {
+               _moviePopularity = value;
+               OnPropertyChanged("MoviePopularity");
+           }
+       }
+
+       private string _movieVoteAverage;
+       public string MovieVoteAverage
+       {
+           get
+           {
+               return _movieVoteAverage;
+           }
+           set
+           {
+               _movieVoteAverage = value;
+               OnPropertyChanged("MovieVoteAverage");
+           }
+       }
+
        private string _searchButtonName;
        public string SearchButtonName
        {
@@ -83,7 +139,6 @@ namespace MedienBibliothek.Controller
                if(value != null)
                {
                    _selectedVideo = value;
-//                   GetMovieImageUrl(_selectedVideo.Name);
                }
                OnPropertyChanged("SelectedVideo");
            }
@@ -192,7 +247,7 @@ namespace MedienBibliothek.Controller
            {
                if (null == _videoListSelectionChanged)
                {
-                   _videoListSelectionChanged = new DelegateCommand(RefreshImageUrl);
+                   _videoListSelectionChanged = new DelegateCommand(RefreshMovieInformation);
                }
                return _videoListSelectionChanged;
            }
@@ -394,20 +449,22 @@ namespace MedienBibliothek.Controller
 
        #endregion Get/Set
 
-       private void RefreshImageUrl()
+       private void RefreshMovieInformation()
        {
-           GetMovieImageUrl(_selectedVideo.Name);
+           GetMovieInformations(_selectedVideo.Name);
        }
 
-       private void GetMovieImageUrl(string movieName)
+       private void GetMovieInformations(string movieName)
        {
            var baseUrl = "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185";
            var client = new TMDbClient("9c51453ba783de3ed91ec927fe4b1ad3");
            SearchContainer<SearchMovie> results = client.SearchMovie(movieName);
            var backPathOfPoster = results.Results[0].PosterPath;
-           
            ImageSourceUrl = baseUrl + backPathOfPoster;
-           
+           MovieTitle = results.Results[0].Title;
+           MovieReleaseDate = results.Results[0].ReleaseDate.ToString();
+           MoviePopularity = results.Results[0].Popularity.ToString();
+           MovieVoteAverage = results.Results[0].VoteAverage.ToString();
        }
 
        private void RenameVideoInList()
