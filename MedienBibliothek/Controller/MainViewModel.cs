@@ -457,7 +457,7 @@ namespace MedienBibliothek.Controller
            }
            catch (Exception)
            {
-               throw;
+               return;
            }
        }
 

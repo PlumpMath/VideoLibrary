@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="videoPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Movies</Value>
+      <Value Profile="(Default)">X:\1 HD</Value>
     </Setting>
     <Setting Name="excelFile" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Movies\VideList.xls</Value>

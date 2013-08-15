@@ -25,7 +25,7 @@ namespace MedienBibliothek.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Movies")]
+        [global::System.Configuration.DefaultSettingValueAttribute("X:\\1 HD")]
         public string videoPath {
             get {
                 return ((string)(this["videoPath"]));
