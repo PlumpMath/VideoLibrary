@@ -228,5 +228,9 @@ namespace MedienBibliothek.Controller
             return null;
         }
 
+        public ICommand GetSelecttionChangedEvent()
+        {
+            return null;
+        }
     }
 }

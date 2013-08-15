@@ -48,16 +48,10 @@ namespace MedienBibliothek.View
             }
         }
 
-//    
-
-//        private void CheckedVideo(object sender, RoutedEventArgs e)
-//        {
-//            ((ICommandHandler)mainGridView.DataContext).GetCheckedVideo().Execute(e);
-//            VideoListView.SelectedItems.Add(e.Source);
-//        }
         private void ItemSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ((MainViewModel)mainGridView.DataContext).SelectedVideos = VideoListView.SelectedItems;
+            ((ICommandHandler)mainGridView.DataContext).GetSelecttionChangedEvent().Execute(e);
             
         }
     }

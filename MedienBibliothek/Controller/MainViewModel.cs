@@ -83,7 +83,7 @@ namespace MedienBibliothek.Controller
                if(value != null)
                {
                    _selectedVideo = value;
-                   GetMovieImageUrl(_selectedVideo.Name);
+//                   GetMovieImageUrl(_selectedVideo.Name);
                }
                OnPropertyChanged("SelectedVideo");
            }
@@ -182,6 +182,24 @@ namespace MedienBibliothek.Controller
            {
                _playVideoEnterKey = value;
                OnPropertyChanged("PlayVideoEnterKey");
+           }
+       }
+
+       private ICommand _videoListSelectionChanged;
+       public ICommand VideoListSelectionChanged
+       {
+           get
+           {
+               if (null == _videoListSelectionChanged)
+               {
+                   _videoListSelectionChanged = new DelegateCommand(RefreshImageUrl);
+               }
+               return _videoListSelectionChanged;
+           }
+           set
+           {
+               _videoListSelectionChanged = value;
+               OnPropertyChanged("VideoListSelectionChanged");
            }
        }
 
@@ -376,6 +394,11 @@ namespace MedienBibliothek.Controller
 
        #endregion Get/Set
 
+       private void RefreshImageUrl()
+       {
+           GetMovieImageUrl(_selectedVideo.Name);
+       }
+
        private void GetMovieImageUrl(string movieName)
        {
            var baseUrl = "https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185";
@@ -385,7 +408,6 @@ namespace MedienBibliothek.Controller
            
            ImageSourceUrl = baseUrl + backPathOfPoster;
            
-           //https://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185 + path
        }
 
        private void RenameVideoInList()
@@ -575,6 +597,11 @@ namespace MedienBibliothek.Controller
        {
 //           return CollectCheckedVideo;
            return null;
+       }
+
+       public ICommand GetSelecttionChangedEvent()
+       {
+           return VideoListSelectionChanged;
        }
 
        public void DragOver(IDropInfo dropInfo)
