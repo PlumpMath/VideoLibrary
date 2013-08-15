@@ -40,10 +40,12 @@
                   HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
-                <GridViewColumn Width="Auto" CellTemplate="{StaticResource ListViewItemWithCheckbox}"/>
+                    <GridViewColumn Width="Auto" CellTemplate="{StaticResource ListViewItemWithCheckbox}"/>
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <Button Content="Test Button" Command="{Binding Path=TestMovieDbRequest}" HorizontalAlignment="Left" Margin="640,259,0,0" VerticalAlignment="Top" Width="124" Height="24"/>
 
         <Button Content="{Binding Path=RefreshButtonName}" Command="{Binding Path=RefreshVideoListCommand}" HorizontalAlignment="Left" Margin="10,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
         <Button Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Left" Margin="685,10,0,0" VerticalAlignment="Top" Width="79" Height="23.96"/>

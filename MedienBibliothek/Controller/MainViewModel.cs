@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -13,6 +14,9 @@ using GongSolutions.Wpf.DragDrop;
 using MedienBibliothek.Interfaces;
 using MedienBibliothek.Model;
 using MedienBibliothek.View;
+using TMDbLib.Client;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Search;
 using DragDropEffects = System.Windows.DragDropEffects;
 using IDropTarget = GongSolutions.Wpf.DragDrop.IDropTarget;
 
@@ -22,10 +26,7 @@ namespace MedienBibliothek.Controller
    public class MainViewModel : INotifyPropertyChanged, ICommandHandler, IDropTarget, IDragSource
     {
 
-       
-       
-//       private readonly FolderBrowserDialog _browseVideoPath = new FolderBrowserDialog();
-       
+
        
        private Collection<Video> _originalVideoList;
 
@@ -41,7 +42,18 @@ namespace MedienBibliothek.Controller
 
        #region Get/Set
 
-       
+       private ICommand _testMovieDbRequest;
+       public ICommand TestMovieDbRequest
+       {
+           get
+           {
+               if (_testMovieDbRequest == null)
+               {
+                   _testMovieDbRequest = new DelegateCommand(GetMovieInformationFromDatabase);
+               }
+               return _testMovieDbRequest;
+           }
+       }
 
        private string _searchButtonName;
        public string SearchButtonName
@@ -169,24 +181,6 @@ namespace MedienBibliothek.Controller
                OnPropertyChanged("PlayVideoEnterKey");
            }
        }
-
-//       private ICommand _collectiCheckedVideos;
-//       public ICommand CollectCheckedVideo
-//       {
-//           get
-//           {
-//               if (null == _collectiCheckedVideos)
-//               {
-//                   _collectiCheckedVideos = new DelegateCommand(CollectSelectedVideo);
-//               }
-//               return _collectiCheckedVideos;
-//           }
-//           set
-//           {
-//               _collectiCheckedVideos = value;
-//               OnPropertyChanged("CollectCheckedVideo");
-//           }
-//       }
 
        private string _searchBoxContext;
        public string SearchBoxContext
@@ -378,6 +372,30 @@ namespace MedienBibliothek.Controller
        }
 
        #endregion Get/Set
+
+       private void GetMovieInformationFromDatabase()
+       {
+           var client = new TMDbClient("9c51453ba783de3ed91ec927fe4b1ad3");
+           SearchContainer<SearchMovie> results = client.SearchMovie("Transformers");
+           foreach (SearchMovie result in results.Results)
+           {
+               MessageBox.Show(result.Title);
+           }
+
+//           var request = System.Net.WebRequest.Create("http://api.themoviedb.org/3/search/movie?query=transformers-2&api_key=9c51453ba783de3ed91ec927fe4b1ad3") as System.Net.HttpWebRequest;
+//           request.Method = "GET";
+//           request.Headers.Add(HttpRequestHeader.Accept, "application/json");
+//           request.ContentLength = 0;
+//           string responseContent;
+//           using (var response = request.GetResponse() as System.Net.HttpWebResponse)
+//           {
+//               using (var reader = new System.IO.StreamReader(response.GetResponseStream()))
+//               {
+//                   responseContent = reader.ReadToEnd();
+//               }
+//           }
+           //http://api.themoviedb.org/3/search/movie?query=transformers-2&api_key=9c51453ba783de3ed91ec927fe4b1ad3
+       }
 
        private void RenameVideoInList()
        {
