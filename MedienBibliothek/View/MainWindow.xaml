@@ -25,6 +25,10 @@
         <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="Visibility" Value="Collapsed" />
         </Style>
+        
+<!--        StylingOfButtons-->
+
+
     </Window.Resources>
     <Grid Name="mainGridView">
         <Grid.ColumnDefinitions>
