@@ -17,7 +17,6 @@ namespace MedienBibliothek.View
         public MainWindow()
         {
             InitializeComponent();
-            
         }
 
         private void ListViewDoubleClick(object sender, MouseButtonEventArgs e)

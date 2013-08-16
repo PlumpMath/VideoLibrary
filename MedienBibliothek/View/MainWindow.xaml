@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Icon="/movie.ico"
         xmlns:Controller="clr-namespace:MedienBibliothek.Controller"
-        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" Title="Video Library" Height="500" Width="782">
+        xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" Title="Video Library" Height="500" Width="800">
     <Window.Resources>
         <DataTemplate x:Key="MovieImage">
             <StackPanel>
@@ -27,17 +27,26 @@
         </Style>
     </Window.Resources>
     <Grid Name="mainGridView">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="column0" Width="60*"/>
+            <ColumnDefinition x:Name="column1" Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="row0" Height="62*" />
+            <RowDefinition x:Name="row1" Height="8*" />
+            <RowDefinition x:Name="row2" Height="30*" />
+        </Grid.RowDefinitions>
         <Grid.DataContext>
             <Controller:MainViewModel/>
         </Grid.DataContext>
-        <ListView Name="VideoListView"  dd:DragDrop.IsDropTarget="True" 
+        <ListView Name="VideoListView" Grid.Row="0" dd:DragDrop.IsDropTarget="True" 
                   dd:DragDrop.IsDragSource="True" dd:DragDrop.DropHandler="{Binding }" 
                   SelectedValue="{Binding Path=SelectedVideo}" 
                   MouseDoubleClick="ListViewDoubleClick" 
                   SelectionChanged="ItemSelectionChanged"
                   SelectionMode="Extended"
                   ItemsSource="{Binding Path=VideoList}" 
-                  HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="455">
+                  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Stretch" MinWidth="400" Width="Auto">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
                     <GridViewColumn Width="Auto" CellTemplate="{StaticResource ListViewItemWithCheckbox}"/>
@@ -45,27 +54,27 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="{Binding Path=RefreshButtonName}" Command="{Binding Path=RefreshVideoListCommand}" HorizontalAlignment="Left" Margin="10,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
-        <Button Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Left" Margin="685,10,0,0" VerticalAlignment="Top" Width="79" Height="23.96"/>
-        <TextBox Text="{Binding Path=SearchBoxContext, UpdateSourceTrigger=PropertyChanged}" KeyDown="PressKeyEventInTextbox" TextChanged="SearchBoxContextChanged" HorizontalAlignment="Left" Height="23.96" Margin="478.25,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193.559" />
+        <Button Grid.Row="1" Content="{Binding Path=RefreshButtonName}" Command="{Binding Path=RefreshVideoListCommand}" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Width="124" Height="20"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="{Binding Path=SearchButtonName}" Command="{Binding Path=SearchVideoListCommand}" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="79" Height="20"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=SearchBoxContext, UpdateSourceTrigger=PropertyChanged}" KeyDown="PressKeyEventInTextbox" TextChanged="SearchBoxContextChanged" HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="193.559" />
 
-        <Button Content="Settings" HorizontalAlignment="Left" Margin="640,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96" Click="SettingsClickEvent"/>
-        <Button Content="{Binding CreateExcelFileButtonName}" Command="{Binding CreateExcelFileCommand}" HorizontalAlignment="Left" Margin="158,435.04,0,0" VerticalAlignment="Top" Width="124" Height="23.96"/>
-        <ListView Name="JdownloaderListView" dd:DragDrop.DragAdornerTemplate="{StaticResource MovieImage}" dd:DragDrop.IsDropTarget="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" SelectedValue="{Binding Path=SelectedJdownloaderFile}" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="121" Margin="10,288,0,0" VerticalAlignment="Top" Width="754">
+        <Button Grid.Row="0" Grid.Column="1" Content="Settings" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Height="20" Click="SettingsClickEvent"/>
+        <Button Grid.Row="1" Content="{Binding CreateExcelFileButtonName}" Command="{Binding CreateExcelFileCommand}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="124" Height="20"/>
+        <ListView Name="JdownloaderListView" Grid.Row="2" Margin="10,10,10,10" dd:DragDrop.DragAdornerTemplate="{StaticResource MovieImage}" dd:DragDrop.IsDropTarget="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" SelectedValue="{Binding Path=SelectedJdownloaderFile}" ItemsSource="{Binding Path=JdownloaderVideoList}" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Top">
             <ListView.View >
                 <GridView>
                     <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Path=JdownloaderVideoPath, Mode=TwoWay}" Header="Video Name"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="{Binding JdownloaderButtonName}" Command="{Binding RefreshJdownloaderVideoListCommand}" HorizontalAlignment="Left" Margin="332,435.04,0,0" VerticalAlignment="Top" Width="133" Height="23.96"/>
-        <Button Content="Copy to USB drive" Command="{Binding CopyMoviesToUsbDrive}" HorizontalAlignment="Left" Margin="478,58,0,0" VerticalAlignment="Top" Width="108"/>
-        <Button Content="Rename movie" Command="{Binding RenameMovie}" HorizontalAlignment="Left" Margin="656,58,0,0" VerticalAlignment="Top" Width="108" Height="20"/>
-        <Image Source="{Binding Path=ImageSourceUrl}" HorizontalAlignment="Left" Height="200" Margin="478,83,0,0" VerticalAlignment="Top" Width="140"/>
-        <Label Content="{Binding Path=MovieTitle}" HorizontalAlignment="Left" Margin="620,110,0,0" VerticalAlignment="Top" Height="30" Width="124"/>
-        <Label Content="{Binding Path=MovieReleaseDate}" HorizontalAlignment="Left" Margin="620,150,0,0" VerticalAlignment="Top" Height="30" Width="124"/>
-        <Label Content="{Binding Path=MovieVoteAverage}" HorizontalAlignment="Left" Margin="620,190,0,0" VerticalAlignment="Top" Height="30" Width="124"/>
-        <Label Content="{Binding Path=MovieMaxRating}" HorizontalAlignment="Left" Margin="640,190,0,0" VerticalAlignment="Top" Height="30" Width="39"/>
+        <Button Grid.Row="1" Content="{Binding JdownloaderButtonName}" Command="{Binding RefreshJdownloaderVideoListCommand}" HorizontalAlignment="Right" Margin="0,0,10,0" VerticalAlignment="Top" Height="20"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="Copy to USB drive" Command="{Binding CopyMoviesToUsbDrive}" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" Height="20" />
+        <Button Grid.Row="0" Grid.Column="1" Content="Rename movie" Command="{Binding RenameMovie}" HorizontalAlignment="Right" Margin="0,50,10,0" VerticalAlignment="Top" Height="20"/>
+        <Image Grid.Row="0" Grid.Column="1" Source="{Binding Path=ImageSourceUrl}" HorizontalAlignment="Left" MinHeight="190" MinWidth="140" Margin="10,90,0,10" VerticalAlignment="Top" />
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=MovieTitle}" HorizontalAlignment="Left" Margin="160,90,10,0" VerticalAlignment="Top" Height="30"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=MovieReleaseDate}" HorizontalAlignment="Left" Margin="160,130,10,0" VerticalAlignment="Top" MinHeight="30"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=MovieVoteAverage}" HorizontalAlignment="Left" Margin="160,170,10,0" VerticalAlignment="Top" MinHeight="30"/>
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=MovieMaxRating}" HorizontalAlignment="Left" Margin="180,170,0,0" VerticalAlignment="Top" MinHeight="30"/>
 
 
 
