@@ -47,7 +47,7 @@
                   SelectionChanged="ItemSelectionChanged"
                   SelectionMode="Extended"
                   ItemsSource="{Binding Path=VideoList}" 
-                  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Stretch" MinWidth="400" Width="Auto">
+                  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Stretch" MinWidth="450">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
                     <GridViewColumn Width="Auto" CellTemplate="{StaticResource ListViewItemWithCheckbox}"/>
