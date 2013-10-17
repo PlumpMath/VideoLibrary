@@ -38,7 +38,7 @@
                   HorizontalAlignment="Stretch" Margin="10,10,10,10" VerticalAlignment="Stretch"
                   CanUserReorderColumns="False" CanUserResizeColumns="True" 
                   CanUserResizeRows="False" CanUserSortColumns="True"
-                  IsReadOnly="False"
+                  IsReadOnly="True"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Name}" Header="Video Name"/>
